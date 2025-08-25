@@ -1,0 +1,5 @@
+E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\RGB点阵取模\obj\Debug\串口驱动WS2812.csproj.AssemblyReference.cache
+E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\RGB点阵取模\obj\Debug\RGB点阵取模.Form1.resources
+E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\RGB点阵取模\obj\Debug\串口驱动WS2812.Properties.Resources.resources
+E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\RGB点阵取模\obj\Debug\串口驱动WS2812.csproj.GenerateResource.cache
+E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\RGB点阵取模\obj\Debug\串口驱动WS2812.csproj.CoreCompileInputs.cache

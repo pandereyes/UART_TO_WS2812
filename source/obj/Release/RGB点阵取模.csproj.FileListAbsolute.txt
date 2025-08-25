@@ -1,0 +1,9 @@
+F:\C#\Code\小工具\RGB点阵取模\RGB点阵取模\bin\Release\RGB点阵取模.exe
+F:\C#\Code\小工具\RGB点阵取模\RGB点阵取模\bin\Release\RGB点阵取模.pdb
+F:\C#\Code\小工具\RGB点阵取模\RGB点阵取模\obj\Release\RGB点阵取模.csprojAssemblyReference.cache
+F:\C#\Code\小工具\RGB点阵取模\RGB点阵取模\obj\Release\RGB点阵取模.Form1.resources
+F:\C#\Code\小工具\RGB点阵取模\RGB点阵取模\obj\Release\RGB点阵取模.Properties.Resources.resources
+F:\C#\Code\小工具\RGB点阵取模\RGB点阵取模\obj\Release\RGB点阵取模.csproj.GenerateResource.cache
+F:\C#\Code\小工具\RGB点阵取模\RGB点阵取模\obj\Release\RGB点阵取模.csproj.CoreCompileInputs.cache
+F:\C#\Code\小工具\RGB点阵取模\RGB点阵取模\obj\Release\RGB点阵取模.exe
+F:\C#\Code\小工具\RGB点阵取模\RGB点阵取模\obj\Release\RGB点阵取模.pdb
