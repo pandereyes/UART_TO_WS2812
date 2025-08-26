@@ -142,6 +142,14 @@ namespace 串口驱动WS2812
             // 初始化显示刷新系统
             displayRefresh = new display_refresh();
 
+            // 测试HSL转换
+            串口驱动WS2812.ws2812.Instance.TestHslConversion();
+
+            // 初始化TrackBar亮度控制
+            trackBar1.Value = 20; // 默认60%亮度
+            label1.Text = "亮度: 20%";
+            ws2812.Instance.SetBrightness(20);
+
 
 
         }
@@ -349,6 +357,33 @@ namespace 串口驱动WS2812
                     keyDownPressed = false;
                     break;
             }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            // 弹窗选择图片
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png;*.gif|All Files|*.*";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                display_func_picture.SetImagePath(openFileDialog.FileName);
+                display_globle_define.g_display_func_index = 2; // 切换到图片显示模式
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            // 获取TrackBar的当前值并设置亮度
+            int brightness = trackBar1.Value;
+            ws2812.Instance.SetBrightness(brightness);
+            
+            // 更新标签显示当前亮度值
+            label1.Text = $"亮度: {brightness}%";
         }
     }
 }

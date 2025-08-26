@@ -75,6 +75,8 @@ namespace 串口驱动WS2812
         // LED显示缓存 
         private byte[] ws2812_display_buffer = new byte[8 * WS2812_NUM];
 
+        // 亮度控制 (0-100)
+        private int brightness = 30; // 默认60%亮度
 
         // RGB颜色结构
         public struct WS2812Color
@@ -85,8 +87,9 @@ namespace 串口驱动WS2812
 
             public WS2812Color(byte red, byte green, byte blue)
             {
-                Red = red;
+                // WS2812使用GRB顺序，但构造函数保持RGB参数顺序以便理解
                 Green = green;
+                Red = red;
                 Blue = blue;
             }
         }
@@ -111,6 +114,7 @@ namespace 串口驱动WS2812
                 byte code = (byte)(((data & 0x80) != 0 ? 0x04 : 0x07) | ((data & 0x40) != 0 ? 0x40 : 0x70) | 0x80);
                 output[bitPos] = code;
                 bitPos++;
+                data <<= 2;
             }
         }
 
@@ -154,7 +158,12 @@ namespace 串口驱动WS2812
         /// <returns>复位信号字节数组</returns>
         private static byte[] CreateResetSignal(int resetBytes = 30)
         {
-            return new byte[resetBytes]; // 全零数组
+            byte[] resetData = new byte[resetBytes];
+            for (int i = 0; i < resetBytes; i++)
+            {
+                resetData[i] = 0xFF; // 全1数组，经过MOS反转后变成低电平
+            }
+            return resetData;
         }
 
         /// <summary>
@@ -175,14 +184,144 @@ namespace 串口驱动WS2812
         }
 
 
+        /// <summary>
+        /// 设置亮度
+        /// </summary>
+        /// <param name="level">亮度级别 (0-100)</param>
+        public void SetBrightness(int level)
+        {
+            if (level < 0) level = 0;
+            if (level > 100) level = 100;
+            brightness = level;
+        }
+
+        /// <summary>
+        /// 获取当前亮度
+        /// </summary>
+        /// <returns>亮度级别 (0-100)</returns>
+        public int GetBrightness()
+        {
+            return brightness;
+        }
+
+        /// <summary>
+        /// 测试HSL转换（调试用）
+        /// </summary>
+        public void TestHslConversion()
+        {
+            // 测试几个基本颜色
+            TestColor(255, 0, 0, "红色");
+            TestColor(0, 255, 0, "绿色");
+            TestColor(0, 0, 255, "蓝色");
+            TestColor(255, 255, 255, "白色");
+            TestColor(0, 0, 0, "黑色");
+        }
+
+        private void TestColor(byte r, byte g, byte b, string colorName)
+        {
+            RgbToHsl(r, g, b, out double h, out double s, out double l);
+            HslToRgb(h, s, l, out byte r2, out byte g2, out byte b2);
+            
+            Console.WriteLine($"{colorName}: RGB({r},{g},{b}) -> HSL({h:F2},{s:F2},{l:F2}) -> RGB({r2},{g2},{b2})");
+        }
+
+        /// <summary>
+        /// RGB到HSL转换
+        /// </summary>
+        private void RgbToHsl(byte r, byte g, byte b, out double h, out double s, out double l)
+        {
+            double red = r / 255.0;
+            double green = g / 255.0;
+            double blue = b / 255.0;
+
+            double max = Math.Max(red, Math.Max(green, blue));
+            double min = Math.Min(red, Math.Min(green, blue));
+
+            // 计算亮度
+            l = (max + min) / 2.0;
+
+            if (max == min)
+            {
+                h = 0;
+                s = 0;
+            }
+            else
+            {
+                double delta = max - min;
+                
+                // 计算饱和度
+                double denominator = 1 - Math.Abs(2 * l - 1);
+                s = denominator > 0.0001 ? delta / denominator : 0;
+
+                // 计算色相
+                if (max == red)
+                    h = (green - blue) / delta + (green < blue ? 6 : 0);
+                else if (max == green)
+                    h = (blue - red) / delta + 2;
+                else
+                    h = (red - green) / delta + 4;
+
+                h /= 6;
+            }
+        }
+
+        /// <summary>
+        /// HSL到RGB转换
+        /// </summary>
+        private void HslToRgb(double h, double s, double l, out byte r, out byte g, out byte b)
+        {
+            double red, green, blue;
+
+            if (s == 0)
+            {
+                red = green = blue = l;
+            }
+            else
+            {
+                double q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                double p = 2 * l - q;
+
+                red = HueToRgb(p, q, h + 1.0/3);
+                green = HueToRgb(p, q, h);
+                blue = HueToRgb(p, q, h - 1.0/3);
+            }
+
+            r = (byte)(red * 255);
+            g = (byte)(green * 255);
+            b = (byte)(blue * 255);
+        }
+
+        private double HueToRgb(double p, double q, double t)
+        {
+            if (t < 0) t += 1;
+            if (t > 1) t -= 1;
+            if (t < 1.0/6) return p + (q - p) * 6 * t;
+            if (t < 1.0/2) return q;
+            if (t < 2.0/3) return p + (q - p) * (2.0/3 - t) * 6;
+            return p;
+        }
+
         public void Ws2812SetColor(int index, UInt32 rgb)
         { 
            if (index < 0 || index >= WS2812_NUM)
                 throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 0 and " + (WS2812_NUM - 1));
+            
             // 将RGB值转换为WS2812Color结构
             byte red = (byte)((rgb >> 16) & 0xFF);
             byte green = (byte)((rgb >> 8) & 0xFF);
             byte blue = (byte)(rgb & 0xFF);
+            
+            // 使用HSL调整亮度，但采用不同的亮度控制策略
+            RgbToHsl(red, green, blue, out double h, out double s, out double l);
+            
+            double temp_brightness = (double)brightness / 100.0;
+            l = temp_brightness * l;
+            
+            // 确保亮度不超过最大值
+            if (l > 1) l = 1;
+            
+            HslToRgb(h, s, l, out red, out green, out blue);
+            
             ws2812_colors[index] = new WS2812Color(red, green, blue);
         }
 

@@ -42,6 +42,9 @@ namespace 串口驱动WS2812
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -126,8 +129,9 @@ namespace 串口驱动WS2812
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(200, 50);
             this.button7.TabIndex = 9;
-            this.button7.Text = "效果四";
+            this.button7.Text = "图片转像素画";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 
@@ -156,11 +160,33 @@ namespace 串口驱动WS2812
             this.button10.Text = "效果七";
             this.button10.UseVisualStyleBackColor = true;
             // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(926, 16);
+            this.trackBar1.Maximum = 100;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(45, 369);
+            this.trackBar1.TabIndex = 13;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(924, 388);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 12);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "亮度(0-100)";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(950, 422);
+            this.ClientSize = new System.Drawing.Size(993, 422);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
@@ -176,7 +202,9 @@ namespace 串口驱动WS2812
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -195,6 +223,8 @@ namespace 串口驱动WS2812
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -14,10 +16,10 @@ namespace 串口驱动WS2812
 
     internal class display_globle_define
     {
-        
+
         public static uint[] g_display_data = new uint[64]; // 假设8x8显示
         public static uint[] g_fft_amp = new uint[512];
-        
+
         public const int DISPLAY_REFRESH_INTERVAL = 5;      // 屏幕刷新间隔5ms
 
         public const int DISPLAY_MAX_LIST_NUM = 8;          // 假设8列LED
@@ -47,6 +49,8 @@ namespace 串口驱动WS2812
         {
             showList.Add(new display_func_draw());
             showList.Add(new display_music_spectrum());
+            //showList.Add(new display_music_bar_spectrum());
+            showList.Add(new display_func_picture());
             // 可以添加更多的显示功能类
         }
 
@@ -55,8 +59,8 @@ namespace 串口驱动WS2812
             display_func_init();
             // 创建高精度定时器，每5ms执行一次
             display_refresh_timer = new System.Threading.Timer(
-                display_refresh_timer_cb, 
-                null, 
+                display_refresh_timer_cb,
+                null,
                 0, // 立即开始
                 display_globle_define.DISPLAY_REFRESH_INTERVAL); // 间隔5ms
         }
@@ -79,14 +83,17 @@ namespace 串口驱动WS2812
                 {
                     ui_update_counter = 0;
                     ui_updating = true;
-                    
+
                     // 异步更新UI，不阻塞定时器
-                    Form1.Instance.BeginInvoke(new Action(() => {
+                    Form1.Instance.BeginInvoke(new Action(() =>
+                    {
                         try
                         {
                             for (int i = 0; i < ws2812.WS2812_NUM; i++)
                             {
                                 uint colorValue = display_globle_define.g_display_data[i];
+
+                                // UI显示使用原始颜色，灯板显示应用亮度控制
                                 int r = (int)((colorValue >> 16) & 0xFF);
                                 int g = (int)((colorValue >> 8) & 0xFF);
                                 int b = (int)(colorValue & 0xFF);
@@ -105,14 +112,17 @@ namespace 串口驱动WS2812
     }
 
 
-    
+
 
 
     internal class display_func_draw : IShowable
     {
-        
+
         public void show()
         {
+            // 清除显示数据
+            Array.Clear(display_globle_define.g_display_data, 0, display_globle_define.g_display_data.Length);
+
             for (int i = 0; i < Form1.buttonList.Count; i++)
             {
                 Button btn = Form1.buttonList[i] as Button;
@@ -379,10 +389,10 @@ namespace 串口驱动WS2812
         {
             // 频率分段定义 (Hz)
             int[] frequency_bands = { 60, 100, 200, 400, 800, 1500, 3000, 6000, 20000 };
-            
+
             // 计算频率分辨率 (44100Hz / 1024点 ≈ 43Hz/bin)
             float frequency_resolution = 44100.0f / 1024.0f;
-            
+
             // 计算每个频率段对应的FFT bin范围
             int[] bin_ranges = new int[9];
             for (int i = 0; i < frequency_bands.Length; i++)
@@ -448,7 +458,7 @@ namespace 串口驱动WS2812
                     // 获取当前频率段的bin范围
                     int start_bin = bin_ranges[i];
                     int end_bin = bin_ranges[i + 1];
-                    
+
                     // 在当前频率段内寻找最大幅度值
                     for (int j = start_bin; j < end_bin && j < display_globle_define.g_fft_amp.Length; j++)
                     {
@@ -559,5 +569,361 @@ namespace 串口驱动WS2812
             }
         }
     }
+
+
+    internal class display_func_picture : IShowable
+    {
+        private static string imagePath = "";
+        private static uint[,] imageData = new uint[8, 8]; // 8x8图像数据缓存
+        private static bool imageLoaded = false;
+        
+        // GIF动画相关变量
+        private static List<uint[,]> gifFrames = new List<uint[,]>();
+        private static int currentFrame = 0;
+        private static int totalFrames = 0;
+        private static bool isGif = false;
+        private static DateTime lastFrameTime = DateTime.Now;
+        private static int frameDelayMs = 100; // 默认帧延迟100ms
+        private static object frameLock = new object(); // 线程安全锁
+
+        // 设置图片路径并处理图片
+        public static void SetImagePath(string path)
+        {
+            imagePath = path;
+            imageLoaded = false;
+            isGif = false;
+            gifFrames.Clear();
+            currentFrame = 0;
+            totalFrames = 0;
+            
+            LoadAndProcessImage();
+        }
+
+        // 加载并处理图片为8x8像素数据
+        private static void LoadAndProcessImage()
+        {
+            if (string.IsNullOrEmpty(imagePath) || !File.Exists(imagePath))
+            {
+                return;
+            }
+
+            try
+            {
+                // 检查是否为GIF文件
+                string extension = Path.GetExtension(imagePath).ToLower();
+                isGif = (extension == ".gif");
+                
+                if (isGif)
+                {
+                    // 处理GIF动画
+                    ProcessGifAnimation();
+                }
+                else
+                {
+                    // 处理静态图片
+                    using (Bitmap originalImage = new Bitmap(imagePath))
+                    {
+                        ProcessSingleImage(originalImage);
+                    }
+                }
+                
+                imageLoaded = true;
+            }
+            catch (Exception ex)
+            {
+                // 图片加载失败，清空数据
+                for (int x = 0; x < 8; x++)
+                {
+                    for (int y = 0; y < 8; y++)
+                    {
+                        imageData[x, y] = 0;
+                    }
+                }
+                imageLoaded = false;
+            }
+        }
+        
+        // 处理GIF动画
+        private static void ProcessGifAnimation()
+        {
+            gifFrames.Clear();
+            
+            using (Image gifImage = Image.FromFile(imagePath))
+            {
+                FrameDimension dimension = new FrameDimension(gifImage.FrameDimensionsList[0]);
+                totalFrames = gifImage.GetFrameCount(dimension);
+                
+                // 获取帧延迟信息
+                PropertyItem frameDelayItem = null;
+                try
+                {
+                    frameDelayItem = gifImage.GetPropertyItem(0x5100); // PropertyTagFrameDelay
+                }
+                catch
+                {
+                    // 如果无法获取帧延迟，使用默认值
+                }
+                
+                // 处理每一帧
+                for (int frameIndex = 0; frameIndex < totalFrames; frameIndex++)
+                {
+                    gifImage.SelectActiveFrame(dimension, frameIndex);
+                    
+                    using (Bitmap frameBitmap = new Bitmap(gifImage))
+                    {
+                        uint[,] frameData = ProcessImageTo8x8(frameBitmap);
+                        gifFrames.Add(frameData);
+                    }
+                    
+                    // 设置帧延迟（如果有）
+                    if (frameDelayItem != null && frameIndex < frameDelayItem.Value.Length / 4)
+                    {
+                        int delay = BitConverter.ToInt32(frameDelayItem.Value, frameIndex * 4) * 10; // 转换为毫秒
+                        if (delay < 20) delay = 100; // 最小延迟保护
+                        frameDelayMs = delay;
+                    }
+                }
+            }
+            
+            currentFrame = 0;
+            lastFrameTime = DateTime.Now;
+        }
+        
+        // 处理单张图片
+        private static void ProcessSingleImage(Bitmap originalImage)
+        {
+            imageData = ProcessImageTo8x8(originalImage);
+        }
+        
+        // 通用图片处理到8x8
+        private static uint[,] ProcessImageTo8x8(Bitmap sourceImage)
+        {
+            uint[,] result = new uint[8, 8];
+            
+            // 使用双线性插值缩放到8x8
+            using (Bitmap resizedImage = new Bitmap(8, 8))
+            {
+                using (Graphics graphics = Graphics.FromImage(resizedImage))
+                {
+                    // 设置高质量插值模式
+                    graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+                    graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                    graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                    graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                    
+                    // 绘制缩放后的图像
+                    graphics.DrawImage(sourceImage, 0, 0, 8, 8);
+                }
+                
+                // 提取8x8像素数据
+                for (int x = 0; x < 8; x++)
+                {
+                    for (int y = 0; y < 8; y++)
+                    {
+                        Color pixel = resizedImage.GetPixel(x, y);
+                        
+                        // 应用色彩增强和对比度调整
+                        Color enhancedPixel = EnhanceColor(pixel);
+                        
+                        // 转换为RGB格式 (R<<16 | G<<8 | B)
+                        result[x, y] = (uint)((enhancedPixel.R << 16) | (enhancedPixel.G << 8) | enhancedPixel.B);
+                    }
+                }
+            }
+            
+            return result;
+        }
+
+        // 色彩增强函数 - 极化处理增强对比度
+        private static Color EnhanceColor(Color original)
+        {
+            // 计算亮度 (使用标准亮度公式)
+            float luminance = (0.299f * original.R + 0.587f * original.G + 0.114f * original.B) / 255.0f;
+
+            // 极化处理参数
+            float threshold = 0.7f;    // 亮度阈值
+            float contrast = 2.0f;     // 对比度增强系数
+            float blackPoint = 0.05f;   // 黑点（避免完全黑色）
+            float whitePoint = 0.95f;   // 白点（避免完全白色）
+
+            // 应用极化处理
+            float enhancedLuminance;
+            if (luminance < threshold)
+            {
+                // 暗部区域：向黑色极化
+                enhancedLuminance = blackPoint * Math.Max(0, luminance * contrast / threshold);
+            }
+            else
+            {
+                // 亮部区域：向白色极化
+                float normalizedBright = (luminance - threshold) / (1.0f - threshold);
+                enhancedLuminance = whitePoint + (1.0f - whitePoint) * Math.Min(1.0f, normalizedBright * contrast);
+            }
+
+            // 确保亮度在有效范围内
+            enhancedLuminance = Math.Max(0.0f, Math.Min(1.0f, enhancedLuminance));
+
+            // 如果是接近灰度的图像，直接映射到黑白
+            if (IsGrayscale(original))
+            {
+                // 灰度图像的极化处理
+                if (enhancedLuminance < 0.3f)
+                {
+                    return Color.FromArgb(0, 0, 0); // 纯黑
+                }
+                else if (enhancedLuminance > 0.7f)
+                {
+                    return Color.FromArgb(255, 255, 255); // 纯白
+                }
+                else
+                {
+                    // 中间灰度根据原始亮度倾向选择黑白
+                    return luminance < threshold ? Color.FromArgb(0, 0, 0) : Color.FromArgb(255, 255, 255);
+                }
+            }
+            else
+            {
+                // 彩色图像：保持色相和饱和度，只调整亮度
+                float hue, saturation, lightness;
+                RgbToHsl(original.R, original.G, original.B, out hue, out saturation, out lightness);
+
+                // 增强饱和度
+                saturation = Math.Min(1.0f, saturation * 1.3f);
+
+                // 使用极化后的亮度
+                lightness = enhancedLuminance;
+
+                // 转换回RGB
+                int r, g, b;
+                HslToRgb(hue, saturation, lightness, out r, out g, out b);
+
+                return Color.FromArgb(r, g, b);
+            }
+        }
+
+        // 判断是否为灰度图像
+        private static bool IsGrayscale(Color color)
+        {
+            int maxDiff = Math.Max(Math.Abs(color.R - color.G),
+                         Math.Max(Math.Abs(color.G - color.B), Math.Abs(color.R - color.B)));
+            return maxDiff < 30; // 允许小幅色彩偏差
+        }
+
+        // RGB转HSL
+        private static void RgbToHsl(int r, int g, int b, out float h, out float s, out float l)
+        {
+            float rf = r / 255.0f;
+            float gf = g / 255.0f;
+            float bf = b / 255.0f;
+
+            float max = Math.Max(rf, Math.Max(gf, bf));
+            float min = Math.Min(rf, Math.Min(gf, bf));
+            float delta = max - min;
+
+            // 亮度
+            l = (max + min) / 2.0f;
+
+            if (delta == 0)
+            {
+                h = s = 0; // 灰色
+            }
+            else
+            {
+                // 饱和度
+                s = l > 0.5f ? delta / (2.0f - max - min) : delta / (max + min);
+
+                // 色相
+                if (max == rf)
+                    h = (gf - bf) / delta + (gf < bf ? 6 : 0);
+                else if (max == gf)
+                    h = (bf - rf) / delta + 2;
+                else
+                    h = (rf - gf) / delta + 4;
+
+                h /= 6.0f;
+            }
+        }
+
+        // HSL转RGB
+        private static void HslToRgb(float h, float s, float l, out int r, out int g, out int b)
+        {
+            float rf, gf, bf;
+
+            if (s == 0)
+            {
+                rf = gf = bf = l; // 灰色
+            }
+            else
+            {
+                float q = l < 0.5f ? l * (1 + s) : l + s - l * s;
+                float p = 2 * l - q;
+
+                rf = HueToRgb(p, q, h + 1.0f / 3.0f);
+                gf = HueToRgb(p, q, h);
+                bf = HueToRgb(p, q, h - 1.0f / 3.0f);
+            }
+
+            r = (int)Math.Round(rf * 255);
+            g = (int)Math.Round(gf * 255);
+            b = (int)Math.Round(bf * 255);
+
+            r = Math.Max(0, Math.Min(255, r));
+            g = Math.Max(0, Math.Min(255, g));
+            b = Math.Max(0, Math.Min(255, b));
+        }
+
+        private static float HueToRgb(float p, float q, float t)
+        {
+            if (t < 0) t += 1;
+            if (t > 1) t -= 1;
+            if (t < 1.0f / 6.0f) return p + (q - p) * 6 * t;
+            if (t < 1.0f / 2.0f) return q;
+            if (t < 2.0f / 3.0f) return p + (q - p) * (2.0f / 3.0f - t) * 6;
+            return p;
+        }
+
+        public void show()
+        {
+            if (!imageLoaded)
+            {
+                // 如果没有加载图片，显示空白
+                Array.Clear(display_globle_define.g_display_data, 0, display_globle_define.g_display_data.Length);
+                return;
+            }
+
+            // GIF动画处理 - 简单的时间控制
+            if (isGif && gifFrames.Count > 0)
+            {
+                TimeSpan elapsed = DateTime.Now - lastFrameTime;
+                if (elapsed.TotalMilliseconds >= frameDelayMs)
+                {
+                    currentFrame = (currentFrame + 1) % totalFrames;
+                    lastFrameTime = DateTime.Now;
+                }
+            }
+
+            // 参考display_number方法的坐标映射：(x + j) * 8 + (y + i)
+            // 这里x是列，y是行，对应LED矩阵的物理布局
+            for (int x = 0; x < 8; x++) // 列
+            {
+                for (int y = 0; y < 8; y++) // 行
+                {
+                    // 注意：display_number使用 (4-i) 进行Y轴翻转
+                    // 这里我们也需要考虑显示方向
+                    int displayIndex = x * 8 + (7 - y); // Y轴翻转以匹配显示方向
+                    
+                    if (isGif && gifFrames.Count > 0)
+                    {
+                        display_globle_define.g_display_data[displayIndex] = gifFrames[currentFrame][x, y];
+                    }
+                    else
+                    {
+                        display_globle_define.g_display_data[displayIndex] = imageData[x, y];
+                    }
+                }
+            }
+        }
+    }
+
 }
             
