@@ -3,7 +3,7 @@
   "WorkspaceRootPath": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\displayfunc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\displayfunc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\displayfunc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -11,7 +11,7 @@
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -51,8 +51,7 @@
               "ViewState": "AgIAAH4BAAAAAAAAAAAAAI4BAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-24T12:28:44.402Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -68,8 +67,7 @@
               "RelativeToolTip": "source\\Form1.Designer.cs",
               "ViewState": "AgIAAK4AAAAAAAAAAAAiwMIAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-27T04:37:13.654Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-27T04:37:13.654Z"
             },
             {
               "$type": "Document",
@@ -91,7 +89,7 @@
               "RelativeDocumentMoniker": "source\\DisplayFunc.cs",
               "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc.cs",
               "RelativeToolTip": "source\\DisplayFunc.cs",
-              "ViewState": "AgIAAEYDAAAAAAAAAADwv0sDAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAADUDAAAAAAAAAAAAAEMDAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-24T12:16:40.199Z",
               "EditorCaption": ""
@@ -106,8 +104,7 @@
               "RelativeToolTip": "source\\AudioFFTAnalysis.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAADwvycAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T12:16:32.638Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-24T12:16:32.638Z"
             },
             {
               "$type": "Document",
@@ -118,8 +115,7 @@
               "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs [\u8BBE\u8BA1]",
               "RelativeToolTip": "source\\Form1.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T12:16:28.101Z",
-              "EditorCaption": " [\u8BBE\u8BA1]"
+              "WhenOpened": "2025-08-24T12:16:28.101Z"
             },
             {
               "$type": "Document",

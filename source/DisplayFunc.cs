@@ -845,6 +845,51 @@ namespace 串口驱动WS2812
                     imageData[x, y] = (uint)((enhancedPixel.R << 16) | (enhancedPixel.G << 8) | enhancedPixel.B);
                 }
             }
+            
+            // 如果是GIF动画，重新处理所有帧
+            if (isGif && gifFrames.Count > 0)
+            {
+                ReprocessGifFrames();
+            }
+        }
+        
+        // 重新处理GIF动画的所有帧（使用当前参数）
+        private static void ReprocessGifFrames()
+        {
+            if (string.IsNullOrEmpty(imagePath) || !File.Exists(imagePath)) return;
+            
+            try
+            {
+                using (Image gifImage = Image.FromFile(imagePath))
+                {
+                    FrameDimension dimension = new FrameDimension(gifImage.FrameDimensionsList[0]);
+                    
+                    // 重新处理每一帧
+                    for (int frameIndex = 0; frameIndex < gifFrames.Count; frameIndex++)
+                    {
+                        gifImage.SelectActiveFrame(dimension, frameIndex);
+                        
+                        using (Bitmap frameBitmap = new Bitmap(gifImage))
+                        {
+                            // 重新处理当前帧
+                            uint[,] reprocessedFrame = ProcessImageTo8x8(frameBitmap);
+                            
+                            // 更新GIF帧数据
+                            for (int x = 0; x < 8; x++)
+                            {
+                                for (int y = 0; y < 8; y++)
+                                {
+                                    gifFrames[frameIndex][x, y] = reprocessedFrame[x, y];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // 处理失败，保持原有帧数据
+            }
         }
 
         // 色彩增强函数 - 极化处理增强对比度
