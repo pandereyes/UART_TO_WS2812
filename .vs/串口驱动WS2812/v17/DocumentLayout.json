@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\displayfunc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\displayfunc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\imagesettingsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\imagesettingsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\displayfunc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\displayfunc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,14 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\audiofftanalysis.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\audiofftanalysis.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\imagesettingsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\imagesettingsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ws2812_driver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
@@ -46,9 +46,9 @@
               "Title": "Form1.cs",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs",
               "RelativeDocumentMoniker": "source\\Form1.cs",
-              "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs",
-              "RelativeToolTip": "source\\Form1.cs",
-              "ViewState": "AgIAAH4BAAAAAAAAAAAAAI4BAAAsAAAAAAAAAA==",
+              "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs*",
+              "RelativeToolTip": "source\\Form1.cs*",
+              "ViewState": "AgIAAHgBAAAAAAAAAADwv3cBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-24T12:28:44.402Z",
               "IsPinned": true,
@@ -60,12 +60,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Form1.Designer.cs",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.Designer.cs",
               "RelativeDocumentMoniker": "source\\Form1.Designer.cs",
-              "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.Designer.cs",
-              "RelativeToolTip": "source\\Form1.Designer.cs",
+              "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.Designer.cs*",
+              "RelativeToolTip": "source\\Form1.Designer.cs*",
               "ViewState": "AgIAAK4AAAAAAAAAAAAiwMIAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-27T04:37:13.654Z",
@@ -85,20 +85,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "DisplayFunc.cs",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc.cs",
               "RelativeDocumentMoniker": "source\\DisplayFunc.cs",
               "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc.cs",
               "RelativeToolTip": "source\\DisplayFunc.cs",
-              "ViewState": "AgIAAJcCAAAAAAAAAADwv6UCAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAFwCAAAAAAAAAAAuwGACAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-24T12:16:40.199Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "AudioFFTAnalysis.cs",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\AudioFFTAnalysis.cs",
               "RelativeDocumentMoniker": "source\\AudioFFTAnalysis.cs",
@@ -110,27 +110,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "Form1.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs",
               "RelativeDocumentMoniker": "source\\Form1.cs",
-              "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs [\u8BBE\u8BA1]",
-              "RelativeToolTip": "source\\Form1.cs [\u8BBE\u8BA1]",
+              "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs [\u8BBE\u8BA1]*",
+              "RelativeToolTip": "source\\Form1.cs [\u8BBE\u8BA1]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-24T12:16:28.101Z",
               "EditorCaption": " [\u8BBE\u8BA1]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "ImageSettingsForm.cs",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ImageSettingsForm.cs",
               "RelativeDocumentMoniker": "source\\ImageSettingsForm.cs",
               "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ImageSettingsForm.cs",
               "RelativeToolTip": "source\\ImageSettingsForm.cs",
-              "ViewState": "AgIAAMIAAAAAAAAAAAAkwNgAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAAAIEAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-27T03:13:20.44Z"
+              "WhenOpened": "2025-08-27T03:13:20.44Z",
+              "EditorCaption": ""
             }
           ]
         }

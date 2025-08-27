@@ -652,8 +652,10 @@ namespace 串口驱动WS2812
                 ReprocessImageWithCurrentParameters();
             };
             
-            // 显示对话框
-            if (settingsForm.ShowDialog() == DialogResult.OK)
+            // 显示对话框并获取结果
+            DialogResult result = settingsForm.ShowDialog();
+            
+            if (result == DialogResult.OK)
             {
                 // 用户点击应用，更新最终参数
                 Brightness = settingsForm.Brightness;
@@ -666,7 +668,7 @@ namespace 串口驱动WS2812
                 ReprocessImageWithCurrentParameters();
                 imageLoaded = true; // 标记图片已加载
             }
-            else
+            else if (result == DialogResult.Cancel)
             {
                 // 用户点击取消，恢复默认参数
                 Brightness = 1.0f;
@@ -674,7 +676,7 @@ namespace 串口驱动WS2812
                 Saturation = 1.3f;
                 Threshold = 0.5f;
                 ForceBinarization = false;
-                
+
                 // 无论之前是否加载图片，都需要重新处理以恢复默认参数效果
                 if (imageLoaded)
                 {

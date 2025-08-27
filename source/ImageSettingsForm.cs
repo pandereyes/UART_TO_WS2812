@@ -50,6 +50,8 @@ namespace 串口驱动WS2812
                 saturationTrackBar.Value = (int)(Saturation * 100);
                 thresholdTrackBar.Value = (int)(Threshold * 100);
                 binarizationCheckBox.Checked = ForceBinarization;
+                
+                
                 UpdateLabels();
             }
         }
@@ -62,6 +64,9 @@ namespace 串口驱动WS2812
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.StartPosition = FormStartPosition.CenterParent;
+            
+            // 处理窗体关闭事件
+            this.FormClosing += ImageSettingsForm_FormClosing;
             
             // 亮度调节
             brightnessLabel = new Label()
@@ -125,7 +130,7 @@ namespace 串口驱动WS2812
             {
                 Text = "黑白阈值:",
                 Location = new Point(20, 170),
-                Size = new Size(80, 20)
+                Size = new Size(100, 20) // 增加宽度以显示完整数值
             };
             
             thresholdTrackBar = new TrackBar()
@@ -161,7 +166,7 @@ namespace 串口驱动WS2812
             // 取消按钮
             cancelButton = new Button()
             {
-                Text = "取消",
+                Text = "重置",
                 Location = new Point(290, 250),
                 Size = new Size(80, 30)
             };
@@ -189,6 +194,7 @@ namespace 串口驱动WS2812
             Threshold = thresholdTrackBar.Value / 100.0f;
             ForceBinarization = binarizationCheckBox.Checked;
             
+            
             UpdateLabels();
             
             // 触发预览更新
@@ -201,6 +207,7 @@ namespace 串口驱动WS2812
             contrastLabel.Text = $"对比度: {Contrast:F1}";
             saturationLabel.Text = $"饱和度: {Saturation:F1}";
             thresholdLabel.Text = $"黑白阈值: {Threshold:F2}";
+            
         }
         
         private void ApplyButton_Click(object sender, EventArgs e)
@@ -220,6 +227,15 @@ namespace 串口驱动WS2812
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+        
+        private void ImageSettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // 如果用户点击标题栏关闭按钮，设置DialogResult为Cancel
+            if (this.DialogResult == DialogResult.None)
+            {
+                this.DialogResult = DialogResult.Cancel;
+            }
         }
     }
 }

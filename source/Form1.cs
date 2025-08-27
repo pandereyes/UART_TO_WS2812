@@ -366,7 +366,7 @@ namespace 串口驱动WS2812
             openFileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png;*.gif|All Files|*.*";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // 使用默认参数立即加载并显示图片，只有在图片成功加载时才切换到图片显示模式
+                // 显示参数设置窗口并处理图片，只有在图片成功加载时才切换到图片显示模式
                 if (display_func_picture.SetImagePath(openFileDialog.FileName, false))
                 {
                     display_globle_define.g_display_func_index = 2; // 切换到图片显示模式
