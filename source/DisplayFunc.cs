@@ -577,6 +577,24 @@ namespace 串口驱动WS2812
         private static uint[,] imageData = new uint[8, 8]; // 8x8图像数据缓存
         private static bool imageLoaded = false;
         
+        // 图像处理参数
+        private static float brightness = 1.0f;
+        private static float contrast = 2.5f;
+        private static float saturation = 1.3f;
+        private static float threshold = 0.5f;
+        private static bool forceBinarization = false;
+        
+        // 图像处理参数
+        public static float Brightness { get; set; } = 1.0f;
+        public static float Contrast { get; set; } = 2.5f;
+        public static float Saturation { get; set; } = 1.3f;
+        public static float Threshold { get; set; } = 0.5f;
+        public static bool ForceBinarization { get; set; } = false;
+        
+        // 原始图像数据缓存（用于实时参数调整）
+        private static Bitmap originalBitmap = null;
+        private static Bitmap resizedBitmap = null;
+        
         // GIF动画相关变量
         private static List<uint[,]> gifFrames = new List<uint[,]>();
         private static int currentFrame = 0;
@@ -587,7 +605,8 @@ namespace 串口驱动WS2812
         private static object frameLock = new object(); // 线程安全锁
 
         // 设置图片路径并处理图片
-        public static void SetImagePath(string path)
+        // 返回true表示图片已成功加载，false表示加载失败或用户取消
+        public static bool SetImagePath(string path, bool showSettings = true)
         {
             imagePath = path;
             imageLoaded = false;
@@ -596,7 +615,76 @@ namespace 串口驱动WS2812
             currentFrame = 0;
             totalFrames = 0;
             
-            LoadAndProcessImage();
+            if (showSettings)
+            {
+                // 弹出参数设置窗口
+                ShowImageSettingsDialog();
+                // 返回图片是否成功加载的状态
+                return imageLoaded;
+            }
+            else
+            {
+                // 直接加载图片
+                LoadAndProcessImage();
+                return imageLoaded;
+            }
+        }
+
+        // 显示图片参数设置对话框
+        public static void ShowImageSettingsDialog()
+        {
+            ImageSettingsForm settingsForm = new ImageSettingsForm();
+            
+            // 设置初始参数值
+            settingsForm.SetInitialValues(Brightness, Contrast, Saturation, Threshold, ForceBinarization);
+            
+            // 参数变化时实时预览
+            settingsForm.ParametersChanged += () =>
+            {
+                // 更新参数并重新处理图片
+                Brightness = settingsForm.Brightness;
+                Contrast = settingsForm.Contrast;
+                Saturation = settingsForm.Saturation;
+                Threshold = settingsForm.Threshold;
+                ForceBinarization = settingsForm.ForceBinarization;
+                
+                // 实时重新处理图像（不重新加载）
+                ReprocessImageWithCurrentParameters();
+            };
+            
+            // 显示对话框
+            if (settingsForm.ShowDialog() == DialogResult.OK)
+            {
+                // 用户点击应用，更新最终参数
+                Brightness = settingsForm.Brightness;
+                Contrast = settingsForm.Contrast;
+                Saturation = settingsForm.Saturation;
+                Threshold = settingsForm.Threshold;
+                ForceBinarization = settingsForm.ForceBinarization;
+                
+                // 使用最终参数重新处理图片
+                ReprocessImageWithCurrentParameters();
+                imageLoaded = true; // 标记图片已加载
+            }
+            else
+            {
+                // 用户点击取消，恢复默认参数
+                Brightness = 1.0f;
+                Contrast = 2.5f;
+                Saturation = 1.3f;
+                Threshold = 0.5f;
+                ForceBinarization = false;
+                
+                // 无论之前是否加载图片，都需要重新处理以恢复默认参数效果
+                if (imageLoaded)
+                {
+                    ReprocessImageWithCurrentParameters();
+                }
+                else
+                {
+                    LoadAndProcessImage();
+                }
+            }
         }
 
         // 加载并处理图片为8x8像素数据
@@ -715,6 +803,10 @@ namespace 串口驱动WS2812
                     graphics.DrawImage(sourceImage, 0, 0, 8, 8);
                 }
                 
+                // 缓存缩放后的图像用于实时预览
+                resizedBitmap?.Dispose();
+                resizedBitmap = new Bitmap(resizedImage);
+                
                 // 提取8x8像素数据
                 for (int x = 0; x < 8; x++)
                 {
@@ -733,6 +825,27 @@ namespace 串口驱动WS2812
             
             return result;
         }
+        
+        // 使用当前参数重新处理图像（用于实时预览）
+        public static void ReprocessImageWithCurrentParameters()
+        {
+            if (resizedBitmap == null) return;
+            
+            // 重新处理8x8像素数据
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    Color pixel = resizedBitmap.GetPixel(x, y);
+                    
+                    // 应用色彩增强和对比度调整
+                    Color enhancedPixel = EnhanceColor(pixel);
+                    
+                    // 转换为RGB格式 (R<<16 | G<<8 | B)
+                    imageData[x, y] = (uint)((enhancedPixel.R << 16) | (enhancedPixel.G << 8) | enhancedPixel.B);
+                }
+            }
+        }
 
         // 色彩增强函数 - 极化处理增强对比度
         private static Color EnhanceColor(Color original)
@@ -740,11 +853,22 @@ namespace 串口驱动WS2812
             // 计算亮度 (使用标准亮度公式)
             float luminance = (0.299f * original.R + 0.587f * original.G + 0.114f * original.B) / 255.0f;
 
+            // 应用亮度调整
+            luminance = Math.Max(0.0f, Math.Min(1.0f, luminance * Brightness));
+
+            // 强制二值化模式（直接返回黑白）
+            if (ForceBinarization)
+            {
+                // 调试信息：输出二值化决策
+                // Console.WriteLine($"二值化: 亮度={luminance:F3}, 阈值={Threshold:F3}, 结果={(luminance < Threshold ? "黑" : "白")}");
+                return luminance < Threshold ? Color.FromArgb(0, 0, 0) : Color.FromArgb(255, 255, 255);
+            }
+
             // 极化处理参数
-            float threshold = 0.7f;    // 亮度阈值
-            float contrast = 2.0f;     // 对比度增强系数
-            float blackPoint = 0.05f;   // 黑点（避免完全黑色）
-            float whitePoint = 0.95f;   // 白点（避免完全白色）
+            float threshold = Threshold;    // 亮度阈值
+            float contrast = Contrast;      // 对比度增强系数
+            float blackPoint = 0.05f;       // 黑点（避免完全黑色）
+            float whitePoint = 0.95f;       // 白点（避免完全白色）
 
             // 应用极化处理
             float enhancedLuminance;
@@ -763,7 +887,7 @@ namespace 串口驱动WS2812
             // 确保亮度在有效范围内
             enhancedLuminance = Math.Max(0.0f, Math.Min(1.0f, enhancedLuminance));
 
-            // 如果是接近灰度的图像，直接映射到黑白
+            // 如果是接近灰度的图像，进行特殊处理
             if (IsGrayscale(original))
             {
                 // 灰度图像的极化处理
@@ -788,7 +912,7 @@ namespace 串口驱动WS2812
                 RgbToHsl(original.R, original.G, original.B, out hue, out saturation, out lightness);
 
                 // 增强饱和度
-                saturation = Math.Min(1.0f, saturation * 1.3f);
+                saturation = Math.Min(1.0f, saturation * Saturation);
 
                 // 使用极化后的亮度
                 lightness = enhancedLuminance;

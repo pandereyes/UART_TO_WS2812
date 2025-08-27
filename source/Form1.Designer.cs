@@ -44,6 +44,7 @@ namespace 串口驱动WS2812
             this.button10 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
+            this.button11 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,6 +123,7 @@ namespace 串口驱动WS2812
             this.button6.TabIndex = 8;
             this.button6.Text = "柱状频谱";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click_1);
             // 
             // button7
             // 
@@ -180,11 +182,22 @@ namespace 串口驱动WS2812
             this.label1.Text = "亮度(0-100)";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(844, 63);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(75, 23);
+            this.button11.TabIndex = 15;
+            this.button11.Text = "set";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(993, 422);
+            this.Controls.Add(this.button11);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.button10);
@@ -225,6 +238,7 @@ namespace 串口驱动WS2812
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button11;
     }
 }
 
