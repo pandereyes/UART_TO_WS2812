@@ -67,13 +67,14 @@ namespace 串口驱动WS2812
         }
 
 
-        public const int WS2812_NUM = 64;
+        // 动态LED数量
+        public static int WS2812_NUM => DisplayConfig.CurrentConfig.TotalLEDs;
 
         // LED数据缓存  
-        private UInt32[] leds_rgb = new UInt32[WS2812_NUM];
+        private UInt32[] leds_rgb = new UInt32[DisplayConfig.CurrentConfig.TotalLEDs];
 
         // LED显示缓存 
-        private byte[] ws2812_display_buffer = new byte[8 * WS2812_NUM];
+        private byte[] ws2812_display_buffer = new byte[8 * DisplayConfig.CurrentConfig.TotalLEDs];
 
         // 亮度控制 (0-100)
         private int brightness = 30; // 默认60%亮度
@@ -94,7 +95,21 @@ namespace 串口驱动WS2812
             }
         }
 
-        private WS2812Color[] ws2812_colors = new WS2812Color[WS2812_NUM];
+        private WS2812Color[] ws2812_colors;
+
+        // 构造函数
+        private ws2812()
+        {
+            ReinitializeLEDArrays();
+        }
+
+        // 重新初始化LED数组
+        public void ReinitializeLEDArrays()
+        {
+            leds_rgb = new UInt32[DisplayConfig.CurrentConfig.TotalLEDs];
+            ws2812_display_buffer = new byte[8 * DisplayConfig.CurrentConfig.TotalLEDs];
+            ws2812_colors = new WS2812Color[DisplayConfig.CurrentConfig.TotalLEDs];
+        }
 
         /// <summary>
         /// 位打包函数
@@ -306,6 +321,12 @@ namespace 串口驱动WS2812
            if (index < 0 || index >= WS2812_NUM)
                 throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 0 and " + (WS2812_NUM - 1));
             
+            // 额外的安全检查，确保数组大小匹配
+            if (ws2812_colors == null || ws2812_colors.Length != WS2812_NUM)
+            {
+                ReinitializeLEDArrays();
+            }
+            
             // 将RGB值转换为WS2812Color结构
             byte red = (byte)((rgb >> 16) & 0xFF);
             byte green = (byte)((rgb >> 8) & 0xFF);
@@ -336,13 +357,15 @@ namespace 串口驱动WS2812
 
         public void Ws2812Refresh()
         {
+            // 安全检查，确保数组大小匹配
+            if (ws2812_colors == null || ws2812_colors.Length != WS2812_NUM)
+            {
+                ReinitializeLEDArrays();
+            }
+            
             byte[] uart_data = CreateLedDataPacket(ws2812_colors);
 
-            if (serialPort == null || !serialPort.IsOpen)
-            {
-                throw new InvalidOperationException("Serial port is not initialized or not open.");
-            }
-            else
+            if (serialPort != null || serialPort.IsOpen)
             {
                 serialPort.Write(uart_data, 0, uart_data.Length);
             }

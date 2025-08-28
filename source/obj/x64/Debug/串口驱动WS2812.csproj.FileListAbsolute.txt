@@ -53,10 +53,11 @@ E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\bin\x64\Debug\NAudio.W
 E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\bin\x64\Debug\System.Security.AccessControl.xml
 E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\bin\x64\Debug\System.Security.Principal.Windows.xml
 E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\obj\x64\Debug\串口驱动WS2812.csproj.AssemblyReference.cache
+E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\obj\x64\Debug\串口驱动WS2812.Form1.resources
+E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\obj\x64\Debug\串口驱动WS2812.ImageSettingsForm.resources
 E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\obj\x64\Debug\串口驱动WS2812.Properties.Resources.resources
 E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\obj\x64\Debug\串口驱动WS2812.csproj.GenerateResource.cache
 E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\obj\x64\Debug\串口驱动WS2812.csproj.CoreCompileInputs.cache
 E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\obj\x64\Debug\串口驱动WS2812.csproj.Up2Date
 E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\obj\x64\Debug\串口驱动WS2812.exe
 E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\obj\x64\Debug\串口驱动WS2812.pdb
-E:\2.learn\C#\C#\Code\小工具\串口驱动WS2812\source\obj\x64\Debug\串口驱动WS2812.Form1.resources

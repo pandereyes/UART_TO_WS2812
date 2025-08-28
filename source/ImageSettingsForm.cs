@@ -220,6 +220,10 @@ namespace 串口驱动WS2812
             ForceBinarization = binarizationCheckBox.Checked;
             
             this.DialogResult = DialogResult.OK;
+            UpdateLabels();
+
+            // 触发预览更新
+            ParametersChanged?.Invoke();
             this.Close();
         }
         
@@ -236,6 +240,24 @@ namespace 串口驱动WS2812
             {
                 this.DialogResult = DialogResult.Cancel;
             }
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // ImageSettingsForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "ImageSettingsForm";
+            this.Load += new System.EventHandler(this.ImageSettingsForm_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void ImageSettingsForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

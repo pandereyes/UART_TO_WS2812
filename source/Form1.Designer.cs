@@ -52,7 +52,7 @@ namespace 串口驱动WS2812
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(625, 83);
+            this.button1.Location = new System.Drawing.Point(776, 83);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 80);
             this.button1.TabIndex = 0;
@@ -62,15 +62,16 @@ namespace 串口驱动WS2812
             // 
             // ColorShowButton
             // 
-            this.ColorShowButton.Location = new System.Drawing.Point(500, 83);
+            this.ColorShowButton.Location = new System.Drawing.Point(651, 83);
             this.ColorShowButton.Name = "ColorShowButton";
             this.ColorShowButton.Size = new System.Drawing.Size(80, 80);
             this.ColorShowButton.TabIndex = 1;
             this.ColorShowButton.UseVisualStyleBackColor = true;
+            this.ColorShowButton.Click += new System.EventHandler(this.ColorShowButton_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(741, 331);
+            this.button2.Location = new System.Drawing.Point(892, 331);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(200, 69);
             this.button2.TabIndex = 2;
@@ -80,7 +81,7 @@ namespace 串口驱动WS2812
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(500, 180);
+            this.button4.Location = new System.Drawing.Point(651, 180);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(200, 50);
             this.button4.TabIndex = 4;
@@ -90,7 +91,7 @@ namespace 串口驱动WS2812
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(500, 261);
+            this.button5.Location = new System.Drawing.Point(651, 261);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(200, 50);
             this.button5.TabIndex = 5;
@@ -101,7 +102,7 @@ namespace 串口驱动WS2812
             // comboBoxSerialPorts
             // 
             this.comboBoxSerialPorts.FormattingEnabled = true;
-            this.comboBoxSerialPorts.Location = new System.Drawing.Point(500, 30);
+            this.comboBoxSerialPorts.Location = new System.Drawing.Point(651, 30);
             this.comboBoxSerialPorts.Name = "comboBoxSerialPorts";
             this.comboBoxSerialPorts.Size = new System.Drawing.Size(117, 20);
             this.comboBoxSerialPorts.TabIndex = 6;
@@ -109,7 +110,7 @@ namespace 串口驱动WS2812
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(625, 16);
+            this.button3.Location = new System.Drawing.Point(776, 16);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 47);
             this.button3.TabIndex = 7;
@@ -119,7 +120,7 @@ namespace 串口驱动WS2812
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(500, 340);
+            this.button6.Location = new System.Drawing.Point(651, 340);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(200, 50);
             this.button6.TabIndex = 8;
@@ -129,7 +130,7 @@ namespace 串口驱动WS2812
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(741, 16);
+            this.button7.Location = new System.Drawing.Point(892, 16);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(200, 50);
             this.button7.TabIndex = 9;
@@ -139,34 +140,37 @@ namespace 串口驱动WS2812
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(741, 98);
+            this.button8.Location = new System.Drawing.Point(892, 98);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(200, 50);
             this.button8.TabIndex = 10;
             this.button8.Text = "效果五";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(741, 180);
+            this.button9.Location = new System.Drawing.Point(892, 180);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(200, 50);
             this.button9.TabIndex = 11;
             this.button9.Text = "效果六";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(741, 261);
+            this.button10.Location = new System.Drawing.Point(892, 261);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(200, 50);
             this.button10.TabIndex = 12;
             this.button10.Text = "效果七";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(947, 16);
+            this.trackBar1.Location = new System.Drawing.Point(1098, 16);
             this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
@@ -177,7 +181,7 @@ namespace 串口驱动WS2812
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(945, 388);
+            this.label1.Location = new System.Drawing.Point(1096, 388);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 12);
             this.label1.TabIndex = 14;
@@ -186,7 +190,7 @@ namespace 串口驱动WS2812
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(865, 63);
+            this.button11.Location = new System.Drawing.Point(1016, 63);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(75, 23);
             this.button11.TabIndex = 15;
@@ -201,25 +205,27 @@ namespace 串口驱动WS2812
             "8x8",
             "16x16",
             "1x30"});
-            this.comboBoxLEDBoardSelect.Location = new System.Drawing.Point(431, 30);
+            this.comboBoxLEDBoardSelect.Location = new System.Drawing.Point(582, 30);
             this.comboBoxLEDBoardSelect.Name = "comboBoxLEDBoardSelect";
             this.comboBoxLEDBoardSelect.Size = new System.Drawing.Size(63, 20);
             this.comboBoxLEDBoardSelect.TabIndex = 16;
+            this.comboBoxLEDBoardSelect.SelectedIndexChanged += new System.EventHandler(this.comboBoxLEDBoardSelect_SelectedIndexChanged_1);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(431, 12);
+            this.label2.Location = new System.Drawing.Point(582, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 17;
             this.label2.Text = "灯板选择";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1029, 420);
+            this.ClientSize = new System.Drawing.Size(1156, 609);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBoxLEDBoardSelect);
             this.Controls.Add(this.button11);

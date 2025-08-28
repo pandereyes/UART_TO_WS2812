@@ -188,10 +188,10 @@ namespace 串口驱动WS2812
 
 
             // 将magnitudes放大并转化为uint整数
-            for (int i = 0; i < display_globle_define.g_fft_amp.Length; i++)
+            for (int i = 0; i < display_global_define.g_fft_amp.Length; i++)
             {
                 // 确保幅度不超过uint.MaxValue
-                display_globle_define.g_fft_amp[i] = (uint)Math.Min(magnitudes[i] * 10000, uint.MaxValue);
+                display_global_define.g_fft_amp[i] = (uint)Math.Min(magnitudes[i] * 10000, uint.MaxValue);
             }
 
 

@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Numerics;
 using 串口驱动WS2812;
+using System.Threading;
 
 namespace 串口驱动WS2812
 {
@@ -17,14 +18,13 @@ namespace 串口驱动WS2812
         private static Form1 instance;
         public static Form1 Instance => instance;
 
-        private Timer ws2812Timer;
         public static List<Control> buttonList = new List<Control>();
         
         // 音频分析相关
         private bool isAudioAnalysisRunning = false;
         
         // 显示刷新相关
-        private display_refresh displayRefresh;
+        private object displayRefresh;
         
         // 按键状态
         public bool keyUpPressed = false;
@@ -39,6 +39,9 @@ namespace 串口驱动WS2812
             this.KeyPreview = true;
             this.KeyDown += Form1_KeyDown;
             this.KeyUp += Form1_KeyUp;
+            
+            // 灯板选择事件
+            comboBoxLEDBoardSelect.SelectedIndexChanged += ComboBoxLEDBoardSelect_SelectedIndexChanged;
         }
 
         // ... 其他代码
@@ -50,83 +53,41 @@ namespace 串口驱动WS2812
         }
         private void btnEvent(Object sender, EventArgs e)
         {
-            string s = "btn_";
-            if (sender is Button)
+            if (sender is Button button)
             {
-                Button button = sender as Button;
-
-                for (int i = 0;i<8;i++)
+                // 解析按钮名称 "btn_x_y"
+                string[] parts = button.Name.Split('_');
+                if (parts.Length == 3 && int.TryParse(parts[1], out int x) && int.TryParse(parts[2], out int y))
                 {
-                    for (int j = 0;j<8;j++)
+                    // 确保坐标在当前灯板范围内
+                    if (x < DisplayConfig.CurrentConfig.Width && y < DisplayConfig.CurrentConfig.Height)
                     {
-                        if (button.Name == s + i + "_" + j)
+                        if (button.BackColor == Color.Black)
                         {
-                            
-                            if (button.BackColor == Color.Black)
-                            {
-                                button.BackColor = gColor.gSelectColor;
-                                //这里写鼠标左键点击事件
-                            }
-                            else
-                            {
-                                button.BackColor = Color.Black;
-                            }
-                            
+                            button.BackColor = gColor.gSelectColor;
+                        }
+                        else
+                        {
+                            button.BackColor = Color.Black;
                         }
                     }
                 }
-
             }
         }
 
-
+        private static System.Threading.Timer ws2812Timer;
         private void Form1_Load(object sender, EventArgs e)
         {
             // ... 你的其他初始化代码 ...
 
-            ws2812Timer = new Timer();
-            ws2812Timer.Interval = 2; // 刷新周期，单位毫秒，可根据需要调整
-            ws2812Timer.Tick += Ws2812Timer_Tick;
+            
+
+            ws2812Timer = new System.Threading.Timer(Ws2812Timer_Tick,null, Timeout.Infinite, Timeout.Infinite); //间隔5ms
 
             //ws2812Timer.Start();
 
-
-
-
-            int b_size = 50;
-            int b_intervel = 0;
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    Button button = new Button();
-                    button.Size = new Size(b_size, b_size);//Button大小
-                    button.Location = new Point(i * b_size + b_intervel, (7 - j) * b_size + b_intervel);//位置
-                    button.Name = "btn_" + i + "_" + j;
-                    
-                    button.BackColor = Color.Black; 
-
-                    button.Click += new EventHandler(btnEvent);//注册点击事件
-                    this.Controls.Add(button);
-                }
-            }
-                    //把所有按钮添加到List集合
-
-            for (int i = 0; i< 8; i++)
-            {
-                for (int j = 0; j< 8; j++)
-                {
-                    Control[] conBtn = this.Controls.Find("btn_" + i.ToString() + "_" + j.ToString(), false);
-                    if (conBtn.Count() >= 1)
-                    {
-                        //判断控件类型是否为按钮
-                        if (conBtn[0] is Button)
-                        {
-                            buttonList.Add(conBtn[0]);
-                        }
-}
-                }
-            }
+            // 初始化创建LED按钮
+            RecreateLEDButtons();
 
 
             // 填充串口号
@@ -139,8 +100,11 @@ namespace 串口驱动WS2812
                 comboBoxSerialPorts.SelectedIndex = 0;
             }
 
+            // 设置灯板选择默认值
+            comboBoxLEDBoardSelect.SelectedIndex = 0; // 默认选择8x8
+
             // 初始化显示刷新系统
-            displayRefresh = new display_refresh();
+            InitializeDisplayRefresh();
 
             // 测试HSL转换
             串口驱动WS2812.ws2812.Instance.TestHslConversion();
@@ -149,9 +113,9 @@ namespace 串口驱动WS2812
             trackBar1.Value = 20; // 默认60%亮度
             label1.Text = "亮度: 20%";
             ws2812.Instance.SetBrightness(20);
-
-
-
+            
+            // 检查并清理可能残留的按钮
+            CheckForStrayButtons();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -165,33 +129,16 @@ namespace 串口驱动WS2812
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //把所有按钮添加到List集合
-            List<Control> buttonList = new List<Control>();
-
-
-            for (int i = 0;i<8;i++)
+            // 清除所有按钮颜色
+            foreach (Control control in buttonList)
             {
-                for (int j = 0;j<8;j++)
+                if (control is Button button)
                 {
-                    Control[] conBtn = this.Controls.Find("btn_" + i.ToString() + "_" + j.ToString(),false);
-                    if (conBtn.Count() >= 1)
-                    {
-                        //判断控件类型是否为按钮
-                        if (conBtn[0] is Button)
-                        {
-                            buttonList.Add(conBtn[0]);
-                        }
-                    }
+                    button.BackColor = Color.Black;
                 }
             }
-
-            //遍历所有List，设定属性
-            for (int i = 0; i < buttonList.Count; i++)
-            {
-                Button btn = buttonList[i] as Button;
-                btn.BackColor = Color.Black;
-            }
         }
+     
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -210,7 +157,7 @@ namespace 串口驱动WS2812
 
         private void button4_Click_1(object sender, EventArgs e)
         {
-            display_globle_define.g_display_func_index = 0;
+            SetDisplayFuncIndex(0);
         }
 
         private void button3_Click_2(object sender, EventArgs e)
@@ -228,7 +175,7 @@ namespace 串口驱动WS2812
                             button.BackColor = Color.Green;
                             button.Text = "关闭";
                         }
-                        ws2812Timer.Start();
+                        ws2812Timer.Change(0, 5);
                     }
                     else
                     {
@@ -252,12 +199,13 @@ namespace 串口驱动WS2812
                     }
                     if (ws2812Timer != null)
                     {
-                        ws2812Timer.Stop();
+                        ws2812Timer.Change(Timeout.Infinite, Timeout.Infinite);                        
                     }
                 }
             }
         }
-        private void Ws2812Timer_Tick(object sender, EventArgs e)
+
+        private void Ws2812Timer_Tick(object state)
         {
             串口驱动WS2812.ws2812.Instance.Ws2812Refresh();
         }
@@ -272,7 +220,7 @@ namespace 串口驱动WS2812
             
             if (ws2812Timer != null)
             {
-                ws2812Timer.Stop();
+                ws2812Timer.Change(Timeout.Infinite, Timeout.Infinite);
                 ws2812Timer.Dispose();
             }
            
@@ -287,7 +235,7 @@ namespace 串口驱动WS2812
             {
                 isAudioAnalysisRunning = true;
 
-                display_globle_define.g_display_func_index = 1;                
+                SetDisplayFuncIndex(1);                
 
                 AudioFFTAnalysis.Instance.StartCapture();
                 if (sender is Button button)
@@ -367,10 +315,204 @@ namespace 串口驱动WS2812
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 // 显示参数设置窗口并处理图片，只有在图片成功加载时才切换到图片显示模式
-                if (display_func_picture.SetImagePath(openFileDialog.FileName, false))
+                bool imageLoaded = false;
+                
+                if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8)
                 {
-                    display_globle_define.g_display_func_index = 2; // 切换到图片显示模式
+                    imageLoaded = display_func_picture.SetImagePath(openFileDialog.FileName, true);
                 }
+                else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
+                {
+                    imageLoaded = display_func_16x16_picture.SetImagePath(openFileDialog.FileName, true);
+                }
+                
+                if (imageLoaded)
+                {
+                    SetDisplayFuncIndex(2); // 切换到图片显示模式
+                }
+            }
+        }
+
+        // 灯板选择切换事件
+        private void ComboBoxLEDBoardSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxLEDBoardSelect.SelectedItem != null)
+            {
+                // 首先停止当前显示刷新定时器
+                StopCurrentDisplayRefreshTimer();
+                
+                string selectedBoard = comboBoxLEDBoardSelect.SelectedItem.ToString();
+                DisplayConfig.SetBoardTypeFromString(selectedBoard);
+
+                // 重新初始化显示数据
+                display_globle_define_8x8.ReinitializeDisplayData();
+                display_globle_define_16x16.ReinitializeDisplayData();
+
+                // 重新初始化WS2812驱动数组
+                ws2812.Instance.ReinitializeLEDArrays();
+                
+                // 重新创建UI按钮
+                RecreateLEDButtons();
+                
+                // 检查并清理可能残留的按钮
+                CheckForStrayButtons();
+                
+                // 重新初始化显示刷新系统
+                InitializeDisplayRefresh();
+                
+                // 启动新的显示刷新定时器
+                StartCurrentDisplayRefreshTimer();
+                
+                // 重置显示模式
+                SetDisplayFuncIndex(0);
+            }
+        }
+        
+        // 停止当前显示刷新定时器
+        private void StopCurrentDisplayRefreshTimer()
+        {
+            display_refresh_8x8.StopRefreshTimer();
+            display_refresh_16x16.StopRefreshTimer();
+        }
+        
+        // 启动当前显示刷新定时器
+        private void StartCurrentDisplayRefreshTimer()
+        {
+            switch (DisplayConfig.CurrentBoardType)
+            {
+                case LEDBoardType.Board8x8:
+                    display_refresh_8x8.StartRefreshTimer();
+                    break;
+                case LEDBoardType.Board16x16:
+                    display_refresh_16x16.StartRefreshTimer();
+                    break;
+            }
+        }
+        
+        // 初始化显示刷新系统
+        private void InitializeDisplayRefresh()
+        {
+            switch (DisplayConfig.CurrentBoardType)
+            {
+                case LEDBoardType.Board8x8:
+                    displayRefresh = new display_refresh_8x8();
+                    break;
+                case LEDBoardType.Board16x16:
+                    displayRefresh = new display_refresh_16x16();
+                    break;
+                default:
+                    displayRefresh = new display_refresh_8x8();
+                    break;
+            }
+        }
+        
+        // 设置显示模式索引
+        private void SetDisplayFuncIndex(int index)
+        {
+            switch (DisplayConfig.CurrentBoardType)
+            {
+                case LEDBoardType.Board8x8:
+                    display_globle_define_8x8.g_display_func_index = index;
+                    break;
+                case LEDBoardType.Board16x16:
+                    display_globle_define_16x16.g_display_func_index = index;
+                    break;
+                default:
+                    display_globle_define_8x8.g_display_func_index = index;
+                    break;
+            }
+        }
+        
+        // 获取显示模式索引
+        private int GetDisplayFuncIndex()
+        {
+            switch (DisplayConfig.CurrentBoardType)
+            {
+                case LEDBoardType.Board8x8:
+                    return display_globle_define_8x8.g_display_func_index;
+                case LEDBoardType.Board16x16:
+                    return display_globle_define_16x16.g_display_func_index;
+                default:
+                    return display_globle_define_8x8.g_display_func_index;
+            }
+        }
+        
+        // 重新创建LED按钮
+        private void RecreateLEDButtons()
+        {
+            // 清除现有按钮 - 使用ToList避免修改集合时的枚举错误
+            List<Control> buttonsToRemove = new List<Control>();
+            foreach (Control control in this.Controls)
+            {
+                if (control is Button && control.Name.StartsWith("btn_"))
+                {
+                    buttonsToRemove.Add(control);
+                }
+            }
+            
+            foreach (Control button in buttonsToRemove)
+            {
+                this.Controls.Remove(button);
+                button.Dispose();
+            }
+            buttonList.Clear();
+            
+            // 创建新的按钮
+            int b_size = 30; // 按钮大小
+            int b_interval = 2; // 按钮间距
+            int startX = 20; // 起始X坐标
+            int startY = 20; // 起始Y坐标
+            
+            BoardConfig config = DisplayConfig.CurrentConfig;
+            
+            for (int x = 0; x < config.Width; x++)
+            {
+                for (int y = 0; y < config.Height; y++)
+                {
+                    Button button = new Button();
+                    button.Size = new Size(b_size, b_size);
+                    button.Location = new Point(startX + x * b_size + b_interval, 
+                                              startY + ((config.Height - 1) - y) * b_size + b_interval);
+                    button.Name = $"btn_{x}_{y}";
+                    button.BackColor = Color.Black;
+                    button.Click += new EventHandler(btnEvent);
+                    
+                    this.Controls.Add(button);
+                    buttonList.Add(button);
+                }
+            }
+        }
+
+        // 测试方法：检查是否有残留的16x16按钮
+        private void CheckForStrayButtons()
+        {
+            int strayButtonCount = 0;
+            foreach (Control control in this.Controls)
+            {
+                if (control is Button button && button.Name.StartsWith("btn_"))
+                {
+                    // 解析按钮坐标
+                    string[] parts = button.Name.Split('_');
+                    if (parts.Length == 3 && 
+                        int.TryParse(parts[1], out int x) && 
+                        int.TryParse(parts[2], out int y))
+                    {
+                        // 检查是否超出当前配置范围
+                        if (x >= DisplayConfig.CurrentConfig.Width || 
+                            y >= DisplayConfig.CurrentConfig.Height)
+                        {
+                            strayButtonCount++;
+                            // 移除超出范围的按钮
+                            this.Controls.Remove(button);
+                            button.Dispose();
+                        }
+                    }
+                }
+            }
+            
+            if (strayButtonCount > 0)
+            {
+                Console.WriteLine($"发现并移除了 {strayButtonCount} 个残留按钮");
             }
         }
 
@@ -397,6 +539,36 @@ namespace 串口驱动WS2812
         private void button11_Click(object sender, EventArgs e)
         {
             display_func_picture.ShowImageSettingsDialog();
+        }
+
+        private void comboBoxLEDBoardSelect_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ColorShowButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
