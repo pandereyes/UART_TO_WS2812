@@ -99,6 +99,7 @@
     <Compile Include="AudioFFTAnalysis.cs" />
     <Compile Include="DisplayConfig.cs" />
     <Compile Include="DisplayFunc16x16.cs" />
+    <Compile Include="DisplayFunc1x30.cs" />
     <Compile Include="DisplayFunc8x8.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

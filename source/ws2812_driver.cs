@@ -365,7 +365,7 @@ namespace 串口驱动WS2812
             
             byte[] uart_data = CreateLedDataPacket(ws2812_colors);
 
-            if (serialPort != null || serialPort.IsOpen)
+            if (serialPort != null && serialPort.IsOpen)
             {
                 serialPort.Write(uart_data, 0, uart_data.Length);
             }

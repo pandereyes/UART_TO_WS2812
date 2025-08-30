@@ -42,6 +42,7 @@ namespace 串口驱动WS2812
             
             // 灯板选择事件
             comboBoxLEDBoardSelect.SelectedIndexChanged += ComboBoxLEDBoardSelect_SelectedIndexChanged;
+
         }
 
         // ... 其他代码
@@ -129,14 +130,7 @@ namespace 串口驱动WS2812
 
         private void button2_Click(object sender, EventArgs e)
         {
-            // 清除所有按钮颜色
-            foreach (Control control in buttonList)
-            {
-                if (control is Button button)
-                {
-                    button.BackColor = Color.Black;
-                }
-            }
+
         }
      
 
@@ -175,6 +169,36 @@ namespace 串口驱动WS2812
                             button.BackColor = Color.Green;
                             button.Text = "关闭";
                         }
+                        
+                        display_refresh.display_showlist_clear();
+                        if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8)
+                        {
+                            // 初始化8x8显示功能列表
+                            display_8x8_init displayInit = new display_8x8_init();
+                            displayInit.showlist_init();
+                            
+                        }
+                        else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
+                        {
+                            // 初始化16x16显示功能列表
+                            display_16x16_init displayInit = new display_16x16_init();                      
+                            displayInit.showlist_init();
+                        }
+                        else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board1x30)
+                        {
+                            // 初始化1x30显示功能列表
+                            display_1x30_init displayInit = new display_1x30_init();
+                            displayInit.showlist_init();
+                        }
+                        else
+                        {
+                            // 初始化8x8显示功能列表
+                            display_8x8_init displayInit = new display_8x8_init();
+                            displayInit.showlist_init();
+                        }
+
+                        SetDisplayFuncIndex(0); 
+
                         ws2812Timer.Change(0, 5);
                     }
                     else
@@ -235,9 +259,26 @@ namespace 串口驱动WS2812
             {
                 isAudioAnalysisRunning = true;
 
-                SetDisplayFuncIndex(1);                
+                if (DisplayConfig.CurrentBoardType == LEDBoardType.Board1x30)
+                {
+                    SetDisplayFuncIndex(0);
+                }
+                else
+                {
+                    SetDisplayFuncIndex(1);
+                }            
 
-                AudioFFTAnalysis.Instance.StartCapture();
+                if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8)
+                {
+                    display_func_music_spectrum.set_frequency_bands(display_global_define.frequence_bands_8x8);
+                }
+                else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
+                {
+                    display_func_music_spectrum.set_frequency_bands(display_global_define.frequence_bands_16x16);
+                }
+
+
+                    AudioFFTAnalysis.Instance.StartCapture();
                 if (sender is Button button)
                 {
                     button.Text = "停止";
@@ -317,19 +358,14 @@ namespace 串口驱动WS2812
                 // 显示参数设置窗口并处理图片，只有在图片成功加载时才切换到图片显示模式
                 bool imageLoaded = false;
                 
-                if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8)
+                if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8 || DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
                 {
                     imageLoaded = display_func_picture.SetImagePath(openFileDialog.FileName, true);
-                }
-                else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
-                {
-                    imageLoaded = display_func_16x16_picture.SetImagePath(openFileDialog.FileName, true);
-                }
-                
-                if (imageLoaded)
-                {
-                    SetDisplayFuncIndex(2); // 切换到图片显示模式
-                }
+                    if (imageLoaded)
+                    {
+                        SetDisplayFuncIndex(2); // 切换到图片显示模式
+                    }
+                }               
             }
         }
 
@@ -345,8 +381,7 @@ namespace 串口驱动WS2812
                 DisplayConfig.SetBoardTypeFromString(selectedBoard);
 
                 // 重新初始化显示数据
-                display_globle_define_8x8.ReinitializeDisplayData();
-                display_globle_define_16x16.ReinitializeDisplayData();
+                display_global_define.ReinitializeDisplayData();
 
                 // 重新初始化WS2812驱动数组
                 ws2812.Instance.ReinitializeLEDArrays();
@@ -371,70 +406,31 @@ namespace 串口驱动WS2812
         // 停止当前显示刷新定时器
         private void StopCurrentDisplayRefreshTimer()
         {
-            display_refresh_8x8.StopRefreshTimer();
-            display_refresh_16x16.StopRefreshTimer();
+            display_refresh.StopRefreshTimer();
         }
         
         // 启动当前显示刷新定时器
         private void StartCurrentDisplayRefreshTimer()
         {
-            switch (DisplayConfig.CurrentBoardType)
-            {
-                case LEDBoardType.Board8x8:
-                    display_refresh_8x8.StartRefreshTimer();
-                    break;
-                case LEDBoardType.Board16x16:
-                    display_refresh_16x16.StartRefreshTimer();
-                    break;
-            }
+            display_refresh.StartRefreshTimer();
         }
         
         // 初始化显示刷新系统
         private void InitializeDisplayRefresh()
         {
-            switch (DisplayConfig.CurrentBoardType)
-            {
-                case LEDBoardType.Board8x8:
-                    displayRefresh = new display_refresh_8x8();
-                    break;
-                case LEDBoardType.Board16x16:
-                    displayRefresh = new display_refresh_16x16();
-                    break;
-                default:
-                    displayRefresh = new display_refresh_8x8();
-                    break;
-            }
+            displayRefresh = new display_refresh();
         }
         
         // 设置显示模式索引
         private void SetDisplayFuncIndex(int index)
         {
-            switch (DisplayConfig.CurrentBoardType)
-            {
-                case LEDBoardType.Board8x8:
-                    display_globle_define_8x8.g_display_func_index = index;
-                    break;
-                case LEDBoardType.Board16x16:
-                    display_globle_define_16x16.g_display_func_index = index;
-                    break;
-                default:
-                    display_globle_define_8x8.g_display_func_index = index;
-                    break;
-            }
+            display_global_define.g_display_func_index = index;
         }
         
         // 获取显示模式索引
         private int GetDisplayFuncIndex()
         {
-            switch (DisplayConfig.CurrentBoardType)
-            {
-                case LEDBoardType.Board8x8:
-                    return display_globle_define_8x8.g_display_func_index;
-                case LEDBoardType.Board16x16:
-                    return display_globle_define_16x16.g_display_func_index;
-                default:
-                    return display_globle_define_8x8.g_display_func_index;
-            }
+            return display_global_define.g_display_func_index;
         }
         
         // 重新创建LED按钮
@@ -569,6 +565,30 @@ namespace 串口驱动WS2812
         private void ColorShowButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (DisplayConfig.CurrentBoardType != LEDBoardType.Board1x30)
+            {
+                display_func_music_spectrum.change_sensitivity();
+            }
+            else
+            {
+                display_func_1x30_music_spectrum.change_sensitivity();
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            // 清除所有按钮颜色
+            foreach (Control control in buttonList)
+            {
+                if (control is Button button)
+                {
+                    button.BackColor = Color.Black;
+                }
+            }
         }
     }
 }

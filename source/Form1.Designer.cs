@@ -47,6 +47,9 @@ namespace 串口驱动WS2812
             this.button11 = new System.Windows.Forms.Button();
             this.comboBoxLEDBoardSelect = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,7 +88,7 @@ namespace 串口驱动WS2812
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(200, 50);
             this.button4.TabIndex = 4;
-            this.button4.Text = "画板";
+            this.button4.Text = "像素画板";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
@@ -95,7 +98,7 @@ namespace 串口驱动WS2812
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(200, 50);
             this.button5.TabIndex = 5;
-            this.button5.Text = "8x8频谱";
+            this.button5.Text = "音乐频谱";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -120,17 +123,17 @@ namespace 串口驱动WS2812
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(651, 340);
+            this.button6.Location = new System.Drawing.Point(892, 16);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(200, 50);
             this.button6.TabIndex = 8;
-            this.button6.Text = "柱状频谱";
+            this.button6.Text = "效果四";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click_1);
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(892, 16);
+            this.button7.Location = new System.Drawing.Point(651, 350);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(200, 50);
             this.button7.TabIndex = 9;
@@ -190,7 +193,7 @@ namespace 串口驱动WS2812
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(1016, 63);
+            this.button11.Location = new System.Drawing.Point(775, 397);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(75, 23);
             this.button11.TabIndex = 15;
@@ -221,11 +224,43 @@ namespace 串口驱动WS2812
             this.label2.Text = "灯板选择";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(776, 308);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(75, 23);
+            this.button12.TabIndex = 18;
+            this.button12.Text = "灵敏度调节";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(776, 228);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(75, 23);
+            this.button13.TabIndex = 19;
+            this.button13.Text = "清屏";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(715, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "串口选择";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1156, 609);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.button13);
+            this.Controls.Add(this.button12);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBoxLEDBoardSelect);
             this.Controls.Add(this.button11);
@@ -272,6 +307,9 @@ namespace 串口驱动WS2812
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.ComboBox comboBoxLEDBoardSelect;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Label label3;
     }
 }
 
