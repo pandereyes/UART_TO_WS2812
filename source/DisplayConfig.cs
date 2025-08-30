@@ -5,8 +5,9 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using UART_TO_WS2812;
 
-namespace 串口驱动WS2812
+namespace UART_TO_WS2812
 {
     public enum LEDBoardType
     {
@@ -101,8 +102,116 @@ namespace 串口驱动WS2812
         }
     }
 
-    // 通用的音乐频谱颜色生成器，兼容8x8,16x16以及1x30灯板
-    internal class music_spectrum_get_color
+
+    internal class display_number
+    {
+
+        // 数字0-9的3x5点阵字体定义
+        private static readonly byte[,,] number_patterns = new byte[10, 5, 3]
+        {
+        { // 0
+            {1,1,1},
+            {1,0,1},
+            {1,0,1},
+            {1,0,1},
+            {1,1,1}
+        },
+        { // 1
+            {0,1,0},
+            {1,1,0},
+            {0,1,0},
+            {0,1,0},
+            {1,1,1}
+        },
+        { // 2
+            {1,1,1},
+            {0,0,1},
+            {1,1,1},
+            {1,0,0},
+            {1,1,1}
+        },
+        { // 3
+            {1,1,1},
+            {0,0,1},
+            {1,1,1},
+            {0,0,1},
+            {1,1,1}
+        },
+        { // 4
+            {1,0,1},
+            {1,0,1},
+            {1,1,1},
+            {0,0,1},
+            {0,0,1}
+        },
+        { // 5
+            {1,1,1},
+            {1,0,0},
+            {1,1,1},
+            {0,0,1},
+            {1,1,1}
+        },
+        { // 6
+            {1,1,1},
+            {1,0,0},
+            {1,1,1},
+            {1,0,1},
+            {1,1,1}
+        },
+        { // 7
+            {1,1,1},
+            {0,0,1},
+            {0,1,0},
+            {0,1,0},
+            {0,1,0}
+        },
+        { // 8
+            {1,1,1},
+            {1,0,1},
+            {1,1,1},
+            {1,0,1},
+            {1,1,1}
+        },
+        { // 9
+            {1,1,1},
+            {1,0,1},
+            {1,1,1},
+            {0,0,1},
+            {1,1,1}
+        }
+        };
+
+        // 在指定位置显示数字
+        // x,y: 显示区域左上角坐标
+        // num: 要显示的数字(0-9)
+        // color: 显示颜色
+        public static void show(byte x, byte y, byte num, uint color)
+        {
+            if (num > 9) return; // 数字范围检查
+
+            // 在指定3x5区域显示数字
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (number_patterns[num, 4 - i, j] == 1)
+                    {
+                        // 确保坐标在显示范围内
+                        if ((x + j) < DisplayConfig.CurrentConfig.Width && (y + i) < DisplayConfig.CurrentConfig.Height)
+                        {
+                            display_global_define.g_display_data[(x + j) * DisplayConfig.CurrentConfig.Width + (y + i)] = color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+// 通用的音乐频谱颜色生成器，兼容8x8,16x16以及1x30灯板
+internal class music_spectrum_get_color
     {
         static byte last_line = 0;
         static int line_cnt = DisplayConfig.CurrentConfig.Height - 1;
@@ -241,19 +350,13 @@ namespace 串口驱动WS2812
         private volatile bool ui_updating = false;  // UI更新标志
 
         // 应用与灯板相同的亮度转换
+        // UI亮度级别（由Form1设置）
+        public static int UIBrightnessLevel { get; set; } = 90; // 默认90%
+        
         public static Color ApplyBrightnessToColor(uint rgbColor)
         {
-            if (ws2812.Instance == null)
-                return Color.FromArgb(
-                    (int)((rgbColor >> 16) & 0xFF),
-                    (int)((rgbColor >> 8) & 0xFF),
-                    (int)(rgbColor & 0xFF)
-                );
-
-            // 获取当前亮度级别,放大UI的显示亮度
-            //int temp_b = ws2812.Instance.GetBrightness() * 3;
-            int temp_b = ws2812.Instance.GetBrightness() * 3 + 30;
-            int brightnessLevel = temp_b > 100 ? 100 : temp_b;
+            // 使用静态的UI亮度级别
+            int brightnessLevel = UIBrightnessLevel;
 
             // 提取RGB分量
             byte red = (byte)((rgbColor >> 16) & 0xFF);
@@ -405,7 +508,7 @@ namespace 串口驱动WS2812
                 // 硬件LED更新 - 始终高频执行
                 for (int i = 0; i < Math.Min(DisplayConfig.CurrentConfig.TotalLEDs, display_global_define.g_display_data.Length); i++)
                 {
-                    ws2812.Instance.Ws2812SetColor(i, display_global_define.g_display_data[i]);
+                    Form1.Instance.ws2812Instance.Ws2812SetColor(i, display_global_define.g_display_data[i]);
                 }
 
                 // UI更新降频 - 根据窗口状态动态调整更新频率
@@ -417,7 +520,13 @@ namespace 串口驱动WS2812
                 // 如果窗口最小化，完全跳过UI更新
                 if (Form1.Instance.WindowState != FormWindowState.Minimized)
                 {
-                    if (ui_update_counter >= updateThreshold && display_global_define.g_display_func_index != 0 && !ui_updating)
+                    // 像素画板功能不适用这里的UI更新
+                    if (DisplayConfig.CurrentBoardType != LEDBoardType.Board1x30 && display_global_define.g_display_func_index == 0)
+                    {
+                        return;
+                    }
+
+                    if (ui_update_counter >= updateThreshold && !ui_updating)
                     {
                         ui_update_counter = 0;
                         ui_updating = true;
@@ -459,6 +568,35 @@ namespace 串口驱动WS2812
                 {
                     Form1.buttonList[i].BackColor = newColor;
                 }
+            }
+        }
+
+        public static void InitShowList()
+        {
+            display_refresh.display_showlist_clear();
+            if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8)
+            {
+                // 初始化8x8显示功能列表
+                display_8x8_init displayInit = new display_8x8_init();
+                displayInit.showlist_init();
+            }
+            else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
+            {
+                // 初始化16x16显示功能列表
+                display_16x16_init displayInit = new display_16x16_init();
+                displayInit.showlist_init();
+            }
+            else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board1x30)
+            {
+                // 初始化1x30显示功能列表
+                display_1x30_init displayInit = new display_1x30_init();
+                displayInit.showlist_init();
+            }
+            else
+            {
+                // 初始化8x8显示功能列表
+                display_8x8_init displayInit = new display_8x8_init();
+                displayInit.showlist_init();
             }
         }
 
@@ -543,6 +681,15 @@ namespace 串口驱动WS2812
         };
 
 
+
+
+        public static void init_para()
+        {
+            list_max_white_point = new uint[display_global_define.DISPLAY_MAX_LINE_NUM];
+            list_last_max_point = new uint[display_global_define.DISPLAY_MAX_LIST_NUM];
+        }
+
+
         public void show()
         {
 
@@ -578,11 +725,11 @@ namespace 串口驱动WS2812
                 {
                     if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8)
                     {
-                        display_number_8x8.show(3, 1, sensitivity, 0x0000FF);
+                        display_number.show(3, 1, sensitivity, 0x0000FF);
                     }
                     else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
                     {
-                        display_number_16x16.show(8, 6, sensitivity, 0x0000FF);
+                        display_number.show(8, 5, sensitivity, 0x0000FF);
                     }                    
                 }
             }

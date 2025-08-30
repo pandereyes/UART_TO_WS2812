@@ -1,5 +1,5 @@
 ﻿
-namespace 串口驱动WS2812
+namespace UART_TO_WS2812
 {
     partial class Form1
     {
@@ -197,7 +197,7 @@ namespace 串口驱动WS2812
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(75, 23);
             this.button11.TabIndex = 15;
-            this.button11.Text = "set";
+            this.button11.Text = "参数调节";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
@@ -257,7 +257,7 @@ namespace 串口驱动WS2812
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1156, 609);
+            this.ClientSize = new System.Drawing.Size(1167, 609);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);

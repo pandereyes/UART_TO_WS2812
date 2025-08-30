@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace 串口驱动WS2812
+namespace UART_TO_WS2812
 {
     static class Program
     {

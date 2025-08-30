@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace 串口驱动WS2812.Properties {
+namespace UART_TO_WS2812.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

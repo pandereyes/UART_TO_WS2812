@@ -3,39 +3,47 @@
   "WorkspaceRootPath": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\ws2812_driver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\ws2812_driver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\displayfunc1x30.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\displayfunc1x30.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\imagesettingsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\imagesettingsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\displayconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\displayconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ws2812_driver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\ws2812_driver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\displayfunc16x16.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\displayfunc16x16.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\displayfunc16x16.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\displayfunc16x16.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\displayfunc8x8.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\displayconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\displayconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\displayfunc8x8.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\displayfunc8x8.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|e:\\2.learn\\c#\\c#\\code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\imagesettingsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\displayfunc16x16.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\displayfunc16x16.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\displayfunc1x30.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\displayfunc1x30.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\imagesettingsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\imagesettingsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\imagesettingsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\imagesettingsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -54,17 +62,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Form1.cs",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs",
               "RelativeDocumentMoniker": "source\\Form1.cs",
               "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs",
               "RelativeToolTip": "source\\Form1.cs",
-              "ViewState": "AgIAADkCAAAAAAAAAIA0wE4CAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAMIAAAAAAAAAAAAtwNQAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-24T12:28:44.402Z",
               "IsPinned": true,
@@ -76,59 +84,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DisplayFunc1x30.cs",
-              "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc1x30.cs",
-              "RelativeDocumentMoniker": "source\\DisplayFunc1x30.cs",
-              "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc1x30.cs",
-              "RelativeToolTip": "source\\DisplayFunc1x30.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAADwvy4AAAApAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ws2812_driver.cs",
+              "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ws2812_driver.cs",
+              "RelativeDocumentMoniker": "source\\ws2812_driver.cs",
+              "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ws2812_driver.cs",
+              "RelativeToolTip": "source\\ws2812_driver.cs",
+              "ViewState": "AgIAAK4AAAAAAAAAAAAlwLcAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T07:28:47.417Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ImageSettingsForm.cs",
-              "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ImageSettingsForm.cs",
-              "RelativeDocumentMoniker": "source\\ImageSettingsForm.cs",
-              "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ImageSettingsForm.cs",
-              "RelativeToolTip": "source\\ImageSettingsForm.cs",
-              "ViewState": "AgIAAOsAAAAAAAAAAAA9wDgAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-28T08:00:47.153Z",
+              "WhenOpened": "2025-08-30T12:27:01.011Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "DisplayFunc16x16.cs",
+              "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc16x16.cs",
+              "RelativeDocumentMoniker": "source\\DisplayFunc16x16.cs",
+              "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc16x16.cs",
+              "RelativeToolTip": "source\\DisplayFunc16x16.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAowBIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T12:27:01.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "DisplayConfig.cs",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayConfig.cs",
               "RelativeDocumentMoniker": "source\\DisplayConfig.cs",
               "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayConfig.cs",
               "RelativeToolTip": "source\\DisplayConfig.cs",
-              "ViewState": "AgIAAK4AAAAAAAAAAAAkwL0AAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAFABAAAAAAAAAAAewFgBAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-27T12:47:54.557Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "DisplayFunc8x8.cs",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc8x8.cs",
               "RelativeDocumentMoniker": "source\\DisplayFunc8x8.cs",
               "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc8x8.cs",
               "RelativeToolTip": "source\\DisplayFunc8x8.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAEwBMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAlwBwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-27T12:37:06.645Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Form1.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs",
               "RelativeDocumentMoniker": "source\\Form1.cs",
@@ -140,20 +148,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "DisplayFunc16x16.cs",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc16x16.cs",
               "RelativeDocumentMoniker": "source\\DisplayFunc16x16.cs",
               "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc16x16.cs",
               "RelativeToolTip": "source\\DisplayFunc16x16.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAqwBEAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAowBkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-27T13:56:14.685Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-27T13:56:14.685Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "Form1.Designer.cs",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.Designer.cs",
               "RelativeDocumentMoniker": "source\\Form1.Designer.cs",
@@ -166,32 +173,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "ws2812_driver.cs",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ws2812_driver.cs",
               "RelativeDocumentMoniker": "source\\ws2812_driver.cs",
               "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ws2812_driver.cs",
               "RelativeToolTip": "source\\ws2812_driver.cs",
-              "ViewState": "AgIAAPUAAAAAAAAAAAAywGIBAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T12:31:27.798Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-24T12:31:27.798Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
+              "Title": "DisplayFunc1x30.cs",
+              "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc1x30.cs",
+              "RelativeDocumentMoniker": "source\\DisplayFunc1x30.cs",
+              "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc1x30.cs",
+              "RelativeToolTip": "source\\DisplayFunc1x30.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAApwBMAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-29T07:28:47.417Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ImageSettingsForm.cs",
+              "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ImageSettingsForm.cs",
+              "RelativeDocumentMoniker": "source\\ImageSettingsForm.cs",
+              "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ImageSettingsForm.cs",
+              "RelativeToolTip": "source\\ImageSettingsForm.cs",
+              "ViewState": "AgIAAOsAAAAAAAAAAAA9wDgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-28T08:00:47.153Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "ImageSettingsForm.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ImageSettingsForm.cs",
               "RelativeDocumentMoniker": "source\\ImageSettingsForm.cs",
               "ToolTip": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ImageSettingsForm.cs [\u8BBE\u8BA1]",
               "RelativeToolTip": "source\\ImageSettingsForm.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-28T13:13:49.552Z",
-              "EditorCaption": " [\u8BBE\u8BA1]"
+              "WhenOpened": "2025-08-28T13:13:49.552Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "AudioFFTAnalysis.cs",
               "DocumentMoniker": "E:\\2.learn\\C#\\C#\\Code\\\u5C0F\u5DE5\u5177\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\AudioFFTAnalysis.cs",
               "RelativeDocumentMoniker": "source\\AudioFFTAnalysis.cs",
@@ -199,8 +228,7 @@
               "RelativeToolTip": "source\\AudioFFTAnalysis.cs",
               "ViewState": "AgIAALUAAAAAAAAAAAAEwL4AAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T12:16:32.638Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-24T12:16:32.638Z"
             }
           ]
         }

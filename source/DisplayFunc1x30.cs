@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using 串口驱动WS2812;
+using UART_TO_WS2812;
 
-namespace 串口驱动WS2812
+namespace UART_TO_WS2812
 {
 
     public class display_1x30_init
@@ -71,7 +71,7 @@ namespace 串口驱动WS2812
             // 清空显示数据
             Array.Clear(display_global_define.g_display_data, 0, display_global_define.g_display_data.Length);
 
-            ushort list_unit_value = (ushort)(sensitivity_arry[sensitivity - 1] / (display_global_define.DISPLAY_MAX_LINE_NUM - 1));
+            ushort list_unit_value = (ushort)(sensitivity_arry[sensitivity - 1] / (display_global_define.DISPLAY_MAX_LIST_NUM - 1));
 
             uint temp_max = 0;
             byte temp_list_unit_num = 0;
@@ -139,7 +139,7 @@ namespace 串口驱动WS2812
                 }
                 
                 // 填充频率显示区域
-                for (byte i = 0; i < display_global_define.DISPLAY_MAX_LINE_NUM; i++)
+                for (byte i = 0; i < display_global_define.DISPLAY_MAX_LIST_NUM; i++)
                 {
                     if (i <= temp_list_unit_num)
                     {
@@ -172,7 +172,7 @@ namespace 串口驱动WS2812
                 }
 
                 // 填充白点（确保不超出范围）
-                if (list_max_white_point < display_global_define.DISPLAY_MAX_LINE_NUM)
+                if (list_max_white_point < display_global_define.DISPLAY_MAX_LIST_NUM)
                 {
                     display_global_define.g_display_data[list_max_white_point] = 0xFFFFFF; // 最高点填充白色
                 }

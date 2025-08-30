@@ -7,23 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace 串口驱动WS2812
+namespace UART_TO_WS2812
 {
 
-    internal class ws2812
+    public class ws2812
     {
-
-
-        private static ws2812 _instance;
-        public static ws2812 Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = new ws2812();
-                return _instance;
-            }
-        }
+        // 移除单例模式，每个实例独立
+        private static int instanceCount = 0;
+        private int instanceId;
 
         // 串口对象  
         public SerialPort serialPort;
@@ -33,7 +24,7 @@ namespace 串口驱动WS2812
         /// </summary>  
         /// <param name="portName">串口名称，如"COM3"</param>  
         /// <param name="baudRate">波特率，常用115200</param>  
-        public bool InitSerial(string portName, int baudRate = 2000000)
+        public bool InitSerial(string portName, int baudRate = 3000000)
         {
             if (serialPort != null && serialPort.IsOpen)
             {
@@ -77,7 +68,7 @@ namespace 串口驱动WS2812
         private byte[] ws2812_display_buffer = new byte[8 * DisplayConfig.CurrentConfig.TotalLEDs];
 
         // 亮度控制 (0-100)
-        private int brightness = 30; // 默认60%亮度
+        private int brightness = 20; // 默认60%亮度
 
         // RGB颜色结构
         public struct WS2812Color
@@ -98,8 +89,9 @@ namespace 串口驱动WS2812
         private WS2812Color[] ws2812_colors;
 
         // 构造函数
-        private ws2812()
+        public ws2812()
         {
+            instanceId = instanceCount++;
             ReinitializeLEDArrays();
         }
 
@@ -118,6 +110,7 @@ namespace 串口驱动WS2812
         /// 将D0D1D2置为1,加上起始位就是0111，翻转后可以作为0码，将D3D4D5D6置为0001，反转后就是1码。
         /// 将D0D1D2置为001，加上起始位就是0001，翻转后可以作为1码，将D3D4D5D6置为0111，反转后就是0码。
         /// 将D7置为1，加上停止位加上字节间隙作为空闲位，空闲位小于50us。
+        /// 串口空闲时默认高电平，翻转后就是低电平，可以作为复位信号
         /// </summary>
         /// <param name="data">要编码的字节数据</param>
         /// <param name="output">输出缓冲区</param>
@@ -189,11 +182,12 @@ namespace 串口驱动WS2812
         private static byte[] CreateLedDataPacket(WS2812Color[] colors)
         {
             byte[] colorData = WS2812EncodeColors(colors);
-            byte[] resetData = CreateResetSignal();
+            //byte[] resetData = CreateResetSignal();
 
-            byte[] packet = new byte[colorData.Length + resetData.Length];
+            //byte[] packet = new byte[colorData.Length + resetData.Length];
+            byte[] packet = new byte[colorData.Length];
             Array.Copy(colorData, 0, packet, 0, colorData.Length);
-            Array.Copy(resetData, 0, packet, colorData.Length, resetData.Length);
+            //Array.Copy(resetData, 0, packet, colorData.Length, resetData.Length);
 
             return packet;
         }

@@ -4,7 +4,7 @@ using System.Threading;
 using NAudio.Wave;
 using NAudio.Dsp;
 
-namespace 串口驱动WS2812
+namespace UART_TO_WS2812
 {
     internal class AudioFFTAnalysis
     {

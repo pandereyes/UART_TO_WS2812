@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Numerics;
-using 串口驱动WS2812;
+using UART_TO_WS2812;
 using System.Threading;
 
-namespace 串口驱动WS2812
+namespace UART_TO_WS2812
 {
     public partial class Form1 : Form
     {
@@ -26,9 +26,16 @@ namespace 串口驱动WS2812
         // 显示刷新相关
         private object displayRefresh;
         
+        // WS2812驱动实例
+        public ws2812 ws2812Instance;
+        
         // 按键状态
         public bool keyUpPressed = false;
         public bool keyDownPressed = false;
+        
+        // 串口检测相关
+        private System.Threading.Timer serialPortMonitorTimer;
+        private string[] lastSerialPorts = new string[0];
 
         public Form1()
         {
@@ -92,31 +99,34 @@ namespace 串口驱动WS2812
 
 
             // 填充串口号
-            comboBoxSerialPorts.Items.Clear();
             string[] ports = SerialPort.GetPortNames();
             Array.Sort(ports);
-            comboBoxSerialPorts.Items.AddRange(ports);
-            if (comboBoxSerialPorts.Items.Count > 0)
-            {
-                comboBoxSerialPorts.SelectedIndex = 0;
-            }
-
-            // 设置灯板选择默认值
-            comboBoxLEDBoardSelect.SelectedIndex = 0; // 默认选择8x8
+            UpdateSerialPortsComboBox(ports);
 
             // 初始化显示刷新系统
             InitializeDisplayRefresh();
 
+            // 创建WS2812实例（非单例）
+            ws2812Instance = new ws2812();
+
+            // 设置灯板选择默认值
+            comboBoxLEDBoardSelect.SelectedIndex = 0;
+
             // 测试HSL转换
-            串口驱动WS2812.ws2812.Instance.TestHslConversion();
+            ws2812Instance.TestHslConversion();
+            
+            // 初始化串口检测定时器（每秒检测一次）
+            InitializeSerialPortMonitor();
 
             // 初始化TrackBar亮度控制
             trackBar1.Value = 20; // 默认60%亮度
             label1.Text = "亮度: 20%";
-            ws2812.Instance.SetBrightness(20);
+            ws2812Instance.SetBrightness(20);
             
             // 检查并清理可能残留的按钮
             CheckForStrayButtons();
+
+            display_refresh.InitShowList();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -159,9 +169,9 @@ namespace 串口驱动WS2812
             if ((sender as Button).Text == "打开")
             {
                 string selectedPort = comboBoxSerialPorts.SelectedItem as string;
-                if (!string.IsNullOrEmpty(selectedPort))
+                if (!string.IsNullOrEmpty(selectedPort) && ws2812Instance != null)
                 {
-                    if (串口驱动WS2812.ws2812.Instance.InitSerial(selectedPort, 3000000)) // 初始化串口    
+                    if (ws2812Instance.InitSerial(selectedPort, 3000000)) // 初始化串口    
                     {
                         // 修改当前按键的背景色为绿色    
                         if (sender is Button button)
@@ -170,32 +180,7 @@ namespace 串口驱动WS2812
                             button.Text = "关闭";
                         }
                         
-                        display_refresh.display_showlist_clear();
-                        if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8)
-                        {
-                            // 初始化8x8显示功能列表
-                            display_8x8_init displayInit = new display_8x8_init();
-                            displayInit.showlist_init();
-                            
-                        }
-                        else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
-                        {
-                            // 初始化16x16显示功能列表
-                            display_16x16_init displayInit = new display_16x16_init();                      
-                            displayInit.showlist_init();
-                        }
-                        else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board1x30)
-                        {
-                            // 初始化1x30显示功能列表
-                            display_1x30_init displayInit = new display_1x30_init();
-                            displayInit.showlist_init();
-                        }
-                        else
-                        {
-                            // 初始化8x8显示功能列表
-                            display_8x8_init displayInit = new display_8x8_init();
-                            displayInit.showlist_init();
-                        }
+                        display_refresh.InitShowList();
 
                         SetDisplayFuncIndex(0); 
 
@@ -204,6 +189,7 @@ namespace 串口驱动WS2812
                     else
                     {
                         MessageBox.Show("串口打开失败！");
+                        //ClearSerialPortSelection();
                     }
                 }
                 else
@@ -213,9 +199,9 @@ namespace 串口驱动WS2812
             }
             else
             {
-                if (串口驱动WS2812.ws2812.Instance.serialPort.IsOpen) // 关闭串口  
+                if (ws2812Instance != null && ws2812Instance.serialPort.IsOpen) // 关闭串口  
                 {
-                    串口驱动WS2812.ws2812.Instance.CloseSerial();
+                    ws2812Instance.CloseSerial();
                     if (sender is Button button)
                     {
                         button.BackColor = Color.White;
@@ -231,7 +217,10 @@ namespace 串口驱动WS2812
 
         private void Ws2812Timer_Tick(object state)
         {
-            串口驱动WS2812.ws2812.Instance.Ws2812Refresh();
+            if (ws2812Instance != null)
+            {
+                ws2812Instance.Ws2812Refresh();
+            }
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
@@ -248,6 +237,12 @@ namespace 串口驱动WS2812
                 ws2812Timer.Dispose();
             }
            
+            // 关闭串口并清空combobox选择
+            if (ws2812Instance != null)
+            {
+                ws2812Instance.CloseSerial();
+                ClearSerialPortSelection();
+            }
             
             base.OnFormClosing(e);
         }
@@ -258,6 +253,8 @@ namespace 串口驱动WS2812
             if (!isAudioAnalysisRunning)
             {
                 isAudioAnalysisRunning = true;
+
+                display_func_music_spectrum.init_para();
 
                 if (DisplayConfig.CurrentBoardType == LEDBoardType.Board1x30)
                 {
@@ -278,7 +275,7 @@ namespace 串口驱动WS2812
                 }
 
 
-                    AudioFFTAnalysis.Instance.StartCapture();
+                 AudioFFTAnalysis.Instance.StartCapture();
                 if (sender is Button button)
                 {
                     button.Text = "停止";
@@ -313,6 +310,13 @@ namespace 串口驱动WS2812
                     }
                 }
             }
+        }
+        
+        // 清空串口选择
+        private void ClearSerialPortSelection()
+        {
+            comboBoxSerialPorts.SelectedIndex = -1;
+            comboBoxSerialPorts.Text = "";
         }
 
         private void comboBoxSerialPorts_SelectedIndexChanged(object sender, EventArgs e)
@@ -372,19 +376,21 @@ namespace 串口驱动WS2812
         // 灯板选择切换事件
         private void ComboBoxLEDBoardSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxLEDBoardSelect.SelectedItem != null)
+            if (comboBoxLEDBoardSelect.SelectedItem != null && ws2812Instance != null)
             {
                 // 首先停止当前显示刷新定时器
                 StopCurrentDisplayRefreshTimer();
-                
+
                 string selectedBoard = comboBoxLEDBoardSelect.SelectedItem.ToString();
                 DisplayConfig.SetBoardTypeFromString(selectedBoard);
+
+                display_refresh.InitShowList();
 
                 // 重新初始化显示数据
                 display_global_define.ReinitializeDisplayData();
 
                 // 重新初始化WS2812驱动数组
-                ws2812.Instance.ReinitializeLEDArrays();
+                ws2812Instance.ReinitializeLEDArrays();
                 
                 // 重新创建UI按钮
                 RecreateLEDButtons();
@@ -419,6 +425,115 @@ namespace 串口驱动WS2812
         private void InitializeDisplayRefresh()
         {
             displayRefresh = new display_refresh();
+        }
+        
+        // 初始化串口检测定时器
+        private void InitializeSerialPortMonitor()
+        {
+            // 保存当前的串口列表
+            lastSerialPorts = SerialPort.GetPortNames();
+            Array.Sort(lastSerialPorts);
+            
+            // 创建定时器，每秒检测一次串口变化
+            serialPortMonitorTimer = new System.Threading.Timer(
+                SerialPortMonitorCallback,
+                null,
+                1000,  // 1秒后开始
+                1000   // 每秒检测一次
+            );
+        }
+        
+        // 串口检测回调函数
+        private void SerialPortMonitorCallback(object state)
+        {
+            // 获取当前串口列表
+            string[] currentPorts = SerialPort.GetPortNames();
+            Array.Sort(currentPorts);
+            
+            // 检查串口列表是否发生变化
+            if (!SerialPortsEqual(lastSerialPorts, currentPorts))
+            {
+                // 串口列表发生变化，更新UI
+                this.BeginInvoke(new Action(() =>
+                {
+                    UpdateSerialPortsComboBox(currentPorts);
+                }));
+                
+                // 更新最后一次检测的串口列表
+                lastSerialPorts = currentPorts;
+            }
+        }
+        
+        // 比较两个串口数组是否相同
+        private bool SerialPortsEqual(string[] ports1, string[] ports2)
+        {
+            if (ports1.Length != ports2.Length)
+                return false;
+            
+            for (int i = 0; i < ports1.Length; i++)
+            {
+                if (ports1[i] != ports2[i])
+                    return false;
+            }
+            
+            return true;
+        }
+        
+        // 更新串口下拉框
+        private void UpdateSerialPortsComboBox(string[] ports)
+        {
+            // 保存当前选中的串口
+            string selectedPort = comboBoxSerialPorts.SelectedItem as string;
+            
+            // 清空并重新填充串口列表
+            comboBoxSerialPorts.Items.Clear();
+            comboBoxSerialPorts.Items.AddRange(ports);
+            
+            // 尝试恢复之前选中的串口
+            if (!string.IsNullOrEmpty(selectedPort) && ports.Contains(selectedPort))
+            {
+                comboBoxSerialPorts.SelectedItem = selectedPort;
+            }
+            else if (ports.Length > 0)
+            {
+                // 如果之前的选中项不存在，选择第一个可用串口
+                comboBoxSerialPorts.SelectedIndex = 0;
+            }
+            else
+            {
+                ClearSerialPortSelection();
+            }
+            
+            // 如果串口状态发生变化，更新打开/关闭按钮状态
+            UpdateSerialPortButtonState();
+        }
+        
+        // 更新串口按钮状态
+        private void UpdateSerialPortButtonState()
+        {
+            string selectedPort = comboBoxSerialPorts.SelectedItem as string;
+            
+            // 如果没有可用串口，禁用打开按钮
+            if (string.IsNullOrEmpty(selectedPort))
+            {
+                button3.Enabled = false;
+                button3.Text = "打开";
+                button3.BackColor = Color.LightGray;
+            }
+            else
+            {
+                button3.Enabled = true;
+                
+                // 如果串口已经打开，保持打开状态
+                if (button3.Text == "关闭")
+                {
+                    button3.BackColor = Color.Green;
+                }
+                else
+                {
+                    button3.BackColor = Color.White;
+                }
+            }
         }
         
         // 设置显示模式索引
@@ -521,7 +636,11 @@ namespace 串口驱动WS2812
         {
             // 获取TrackBar的当前值并设置亮度
             int brightness = trackBar1.Value;
-            ws2812.Instance.SetBrightness(brightness);
+            if (ws2812Instance != null)
+            {
+                ws2812Instance.SetBrightness(brightness);
+                display_refresh.UIBrightnessLevel = brightness * 3 + 30;
+            }
             
             // 更新标签显示当前亮度值
             label1.Text = $"亮度: {brightness}%";
