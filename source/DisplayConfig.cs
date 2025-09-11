@@ -156,7 +156,7 @@ namespace UART_TO_WS2812
         // 频谱幅度数据
         public static uint[] g_fft_amp = new uint[512];
 
-        public const int DISPLAY_REFRESH_INTERVAL = 5;      // 屏幕刷新间隔5ms
+        public const int DISPLAY_REFRESH_INTERVAL = 20;     // 屏幕刷新间隔20ms
 
         public static int g_display_func_index = 0;
 
@@ -599,7 +599,7 @@ internal class music_spectrum_get_color
                display_refresh_timer_cb,
                null,
                0, // 立即开始
-               display_global_define.DISPLAY_REFRESH_INTERVAL); // 间隔5ms
+               display_global_define.DISPLAY_REFRESH_INTERVAL); // 间隔20ms
         }
 
 

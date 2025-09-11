@@ -357,11 +357,20 @@ namespace UART_TO_WS2812
                 ReinitializeLEDArrays();
             }
             
-            byte[] uart_data = CreateLedDataPacket(ws2812_colors);
+            // 直接创建GRB格式的数据，每个LED 3个字节：Green, Red, Blue
+            byte[] grb_data = new byte[WS2812_NUM * 3];
+            
+            for (int i = 0; i < WS2812_NUM; i++)
+            {
+                int baseIndex = i * 3;
+                grb_data[baseIndex] = ws2812_colors[i].Green;      // G
+                grb_data[baseIndex + 1] = ws2812_colors[i].Red;   // R  
+                grb_data[baseIndex + 2] = ws2812_colors[i].Blue;  // B
+            }
 
             if (serialPort != null && serialPort.IsOpen)
             {
-                serialPort.Write(uart_data, 0, uart_data.Length);
+                serialPort.Write(grb_data, 0, grb_data.Length);
             }
         }
     }
