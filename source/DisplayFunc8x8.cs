@@ -13,10 +13,6 @@ using UART_TO_WS2812;
 
 namespace UART_TO_WS2812
 {
-    public interface IShowable
-    {
-        void show();
-    }
 
     internal class display_8x8_init
     {
@@ -25,6 +21,7 @@ namespace UART_TO_WS2812
             display_refresh.display_showlist_add(new display_func_draw());
             display_refresh.display_showlist_add(new display_func_music_spectrum());
             display_refresh.display_showlist_add(new display_func_picture());
+            display_refresh.display_showlist_add(new display_func_code_rain());
         }
     }
 }

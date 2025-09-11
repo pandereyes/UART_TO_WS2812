@@ -50,6 +50,9 @@ namespace UART_TO_WS2812
             this.button12 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.button14 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,11 +77,11 @@ namespace UART_TO_WS2812
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(892, 331);
+            this.button2.Location = new System.Drawing.Point(892, 350);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(200, 69);
+            this.button2.Size = new System.Drawing.Size(200, 50);
             this.button2.TabIndex = 2;
-            this.button2.Text = "重置";
+            this.button2.Text = "效果八";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -127,7 +130,7 @@ namespace UART_TO_WS2812
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(200, 50);
             this.button6.TabIndex = 8;
-            this.button6.Text = "效果四";
+            this.button6.Text = "代码雨";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click_1);
             // 
@@ -147,7 +150,7 @@ namespace UART_TO_WS2812
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(200, 50);
             this.button8.TabIndex = 10;
-            this.button8.Text = "效果五";
+            this.button8.Text = "B站粉丝数";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
@@ -205,8 +208,8 @@ namespace UART_TO_WS2812
             // 
             this.comboBoxLEDBoardSelect.FormattingEnabled = true;
             this.comboBoxLEDBoardSelect.Items.AddRange(new object[] {
-            "8x8",
             "16x16",
+            "8x8",
             "1x30"});
             this.comboBoxLEDBoardSelect.Location = new System.Drawing.Point(582, 30);
             this.comboBoxLEDBoardSelect.Name = "comboBoxLEDBoardSelect";
@@ -253,11 +256,46 @@ namespace UART_TO_WS2812
             this.label3.TabIndex = 20;
             this.label3.Text = "串口选择";
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(7, 4);
+            this.linkLabel1.Location = new System.Drawing.Point(651, 493);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(264, 19);
+            this.linkLabel1.TabIndex = 21;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "由B站UP主<赛博造梦>开源，求关注，求三连。\r\n";
+            this.linkLabel1.UseCompatibleTextRendering = true;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(649, 449);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(245, 12);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "注意亮度过高可能会出现供电不足卡死的问题";
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(1017, 144);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(75, 23);
+            this.button14.TabIndex = 23;
+            this.button14.Text = "设置UID";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1167, 609);
+            this.ClientSize = new System.Drawing.Size(1167, 521);
+            this.Controls.Add(this.button14);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
@@ -310,6 +348,9 @@ namespace UART_TO_WS2812
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button14;
     }
 }
 

@@ -130,7 +130,7 @@ namespace UART_TO_WS2812
         private static void WS2812EncodeLed(WS2812Color color, byte[] buffer)
         {
             if (buffer.Length < 12)
-                throw new ArgumentException("Buffer must be at least 9 bytes long");
+                throw new ArgumentException("Buffer must be at least 12 bytes long");
 
             int bitPos = 0;
             Array.Clear(buffer, 0, 12); // 

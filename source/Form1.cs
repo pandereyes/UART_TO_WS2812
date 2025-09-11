@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using System.Numerics;
 using UART_TO_WS2812;
 using System.Threading;
+using System.Security.Policy;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace UART_TO_WS2812
 {
@@ -648,7 +651,10 @@ namespace UART_TO_WS2812
 
         private void button6_Click_1(object sender, EventArgs e)
         {
-
+            if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8 || DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
+            {
+                SetDisplayFuncIndex(3);
+            }
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -673,7 +679,62 @@ namespace UART_TO_WS2812
 
         private void button8_Click(object sender, EventArgs e)
         {
+            if (DisplayConfig.CurrentBoardType != LEDBoardType.Board16x16) return;
 
+            // B站粉丝数显示功能
+            try
+            {
+                // 弹出对话框让用户输入B站用户ID
+                string input = ShowInputDialog(
+                    "请输入B站用户ID（UID）：\n\n" +
+                    "示例：33028512\n" +
+                    "您可以在B站用户主页的URL中找到UID\n" +
+                    "格式：https://space.bilibili.com/用户ID",
+                    "B站粉丝数显示设置",
+                    display_func_bilibili_fans.BilibiliUID.ToString()
+                );
+
+                // 如果用户取消输入
+                if (string.IsNullOrEmpty(input))
+                {
+                    return;
+                }
+
+                // 验证输入的ID格式
+                if (long.TryParse(input.Trim(), out long uid) && uid > 0)
+                {
+                    // 设置B站用户ID
+                    display_func_bilibili_fans.SetBilibiliUID(uid);
+                    
+                    // 切换到B站粉丝数显示模式（索引4）
+                    SetDisplayFuncIndex(4);
+                    
+                    // 显示确认消息
+                    MessageBox.Show($"已设置B站用户ID为：{uid}\n" +
+                                  "正在切换到粉丝数显示模式...\n" +
+                                  "首次获取数据可能需要几秒钟时间。",
+                                  "设置成功", 
+                                  MessageBoxButtons.OK, 
+                                  MessageBoxIcon.Information);
+                }
+                else
+                {
+                    // 输入格式错误
+                    MessageBox.Show("输入的ID格式不正确！\n" +
+                                  "请输入有效的数字ID。\n\n" +
+                                  "提示：B站用户ID通常是一串数字，可以在用户主页URL中找到。",
+                                  "输入错误", 
+                                  MessageBoxButtons.OK, 
+                                  MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"设置B站粉丝数显示时发生错误：\n{ex.Message}",
+                              "错误", 
+                              MessageBoxButtons.OK, 
+                              MessageBoxIcon.Error);
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -707,6 +768,124 @@ namespace UART_TO_WS2812
                 {
                     button.BackColor = Color.Black;
                 }
+            }
+        }
+
+        string url = "www.bilibili.com/video/BV1R4hRz3E7H/?spm_id_from=333.1387.homepage.video_card.click";
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(url);
+        }
+
+        // 简单的输入对话框方法
+        private string ShowInputDialog(string message, string title, string defaultValue = "")
+        {
+            Form inputForm = new Form()
+            {
+                Width = 400,
+                Height = 250,
+                Text = title,
+                StartPosition = FormStartPosition.CenterParent,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false
+            };
+
+            Label label = new Label()
+            {
+                Text = message,
+                Top = 20,
+                Left = 20,
+                Width = 340,
+                Height = 80
+            };
+
+            TextBox textBox = new TextBox()
+            {
+                Text = defaultValue,
+                Top = 110,
+                Left = 20,
+                Width = 340
+            };
+
+            Button okButton = new Button()
+            {
+                Text = "确定",
+                DialogResult = DialogResult.OK,
+                Top = 150,
+                Left = 200,
+                Width = 80
+            };
+
+            Button cancelButton = new Button()
+            {
+                Text = "取消",
+                DialogResult = DialogResult.Cancel,
+                Top = 150,
+                Left = 290,
+                Width = 80
+            };
+
+            inputForm.Controls.AddRange(new Control[] { label, textBox, okButton, cancelButton });
+            inputForm.AcceptButton = okButton;
+            inputForm.CancelButton = cancelButton;
+
+            return inputForm.ShowDialog() == DialogResult.OK ? textBox.Text : null;
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            if (DisplayConfig.CurrentBoardType != LEDBoardType.Board16x16) return;
+            // B站粉丝数显示功能
+            try
+            {
+                // 弹出对话框让用户输入B站用户ID
+                string input = ShowInputDialog(
+                    "请输入B站用户ID（UID）：\n\n" +
+                    "示例：33028512\n" +
+                    "您可以在B站用户主页的URL中找到UID\n" +
+                    "格式：https://space.bilibili.com/用户ID",
+                    "B站粉丝数显示设置",
+                    display_func_bilibili_fans.BilibiliUID.ToString()
+                );
+
+                // 如果用户取消输入
+                if (string.IsNullOrEmpty(input))
+                {
+                    return;
+                }
+
+                // 验证输入的ID格式
+                if (long.TryParse(input.Trim(), out long uid) && uid > 0)
+                {
+                    // 设置B站用户ID
+                    display_func_bilibili_fans.SetBilibiliUID(uid);
+
+                    // 显示确认消息
+                    MessageBox.Show($"已设置B站用户ID为：{uid}\n" +
+                                  "正在切换到粉丝数显示模式...\n" +
+                                  "首次获取数据可能需要几秒钟时间。",
+                                  "设置成功",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Information);
+                }
+                else
+                {
+                    // 输入格式错误
+                    MessageBox.Show("输入的ID格式不正确！\n" +
+                                  "请输入有效的数字ID。\n\n" +
+                                  "提示：B站用户ID通常是一串数字，可以在用户主页URL中找到。",
+                                  "输入错误",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"设置B站粉丝数显示时发生错误：\n{ex.Message}",
+                              "错误",
+                              MessageBoxButtons.OK,
+                              MessageBoxIcon.Error);
             }
         }
     }

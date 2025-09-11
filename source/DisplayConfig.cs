@@ -4,7 +4,10 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Http;
+using System.Text.RegularExpressions;
 using UART_TO_WS2812;
 
 namespace UART_TO_WS2812
@@ -14,6 +17,137 @@ namespace UART_TO_WS2812
         Board8x8,
         Board16x16,
         Board1x30
+    }
+
+    public interface IShowable
+    {
+        void show();
+    }
+
+    /// <summary>
+    /// 随机数工具类，提供类似C语言rand()的功能
+    /// </summary>
+    public static class RandomUtils
+    {
+        // 使用延迟初始化确保每次程序启动都有不同的随机性
+        private static Random random = null;
+        private static object lockObj = new object();
+
+        /// <summary>
+        /// 设置随机数种子（类似C语言的srand）
+        /// </summary>
+        /// <param name="seed">种子值</param>
+        public static void SetSeed(int seed)
+        {
+            lock (lockObj)
+            {
+                random = new Random(seed);
+            }
+        }
+
+        // 确保Random实例已初始化
+        private static void EnsureInitialized()
+        {
+            if (random == null)
+            {
+                lock (lockObj)
+                {
+                    if (random == null)
+                    {
+                        // 使用当前时间作为默认种子，确保每次程序启动都有不同的随机性
+                        random = new Random(Environment.TickCount);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 使用当前时间作为种子设置随机数生成器
+        /// </summary>
+        public static void SetTimeSeed()
+        {
+            SetSeed(Environment.TickCount);
+        }
+
+        /// <summary>
+        /// 生成随机整数（类似C语言的rand）
+        /// </summary>
+        /// <returns>随机整数</returns>
+        public static int Rand()
+        {
+            EnsureInitialized();
+            lock (lockObj)
+            {
+                return random.Next();
+            }
+        }
+
+        /// <summary>
+        /// 生成指定范围内的随机整数
+        /// </summary>
+        /// <param name="min">最小值（包含）</param>
+        /// <param name="max">最大值（不包含）</param>
+        /// <returns>范围内的随机整数</returns>
+        public static int RandRange(int min, int max)
+        {
+            EnsureInitialized();
+            lock (lockObj)
+            {
+                return random.Next(min, max);
+            }
+        }
+
+        /// <summary>
+        /// 生成0.0到1.0之间的随机浮点数
+        /// </summary>
+        /// <returns>随机浮点数</returns>
+        public static double RandDouble()
+        {
+            EnsureInitialized();
+            lock (lockObj)
+            {
+                return random.NextDouble();
+            }
+        }
+
+        /// <summary>
+        /// 生成随机颜色
+        /// </summary>
+        /// <returns>随机RGB颜色值</returns>
+        public static uint RandomColor()
+        {
+            EnsureInitialized();
+            lock (lockObj)
+            {
+                byte r = (byte)random.Next(256);
+                byte g = (byte)random.Next(256);
+                byte b = (byte)random.Next(256);
+                return (uint)((r << 16) | (g << 8) | b);
+            }
+        }
+
+        /// <summary>
+        /// 生成指定亮度范围内的随机颜色
+        /// </summary>
+        /// <param name="minBrightness">最小亮度（0-255）</param>
+        /// <param name="maxBrightness">最大亮度（0-255）</param>
+        /// <returns>随机RGB颜色值</returns>
+        public static uint RandomColor(int minBrightness, int maxBrightness)
+        {
+            EnsureInitialized();
+            lock (lockObj)
+            {
+                minBrightness = Math.Max(0, Math.Min(255, minBrightness));
+                maxBrightness = Math.Max(0, Math.Min(255, maxBrightness));
+                
+                int brightness = random.Next(minBrightness, maxBrightness + 1);
+                byte r = (byte)(brightness * random.NextDouble());
+                byte g = (byte)(brightness * random.NextDouble());
+                byte b = (byte)(brightness * random.NextDouble());
+                
+                return (uint)((r << 16) | (g << 8) | b);
+            }
+        }
     }
 
     public static class display_global_define
@@ -46,7 +180,7 @@ namespace UART_TO_WS2812
     public static class DisplayConfig
     {
         // 当前选择的灯板类型
-        public static LEDBoardType CurrentBoardType { get; private set; } = LEDBoardType.Board8x8;
+        public static LEDBoardType CurrentBoardType { get; private set; } = LEDBoardType.Board16x16;
         
         // 灯板配置信息
         public static Dictionary<LEDBoardType, BoardConfig> BoardConfigs = new Dictionary<LEDBoardType, BoardConfig>
@@ -1388,4 +1522,216 @@ internal class music_spectrum_get_color
         }
     }
 
+    public class random_for_tick
+    {
+        // 使用线程安全的Random实例，确保每次调用都有不同的随机性
+        [ThreadStatic]
+        private static Random ra;
+        private static object lockObj = new object();
+
+        public static int get_random(int limit)
+        {
+            // 确保每个线程都有独立的Random实例
+            if (ra == null)
+            {
+                lock (lockObj)
+                {
+                    if (ra == null)
+                    {
+                        // 使用时间戳和线程ID作为种子，确保随机性
+                        int seed = Environment.TickCount ^ Thread.CurrentThread.ManagedThreadId;
+                        ra = new Random(seed);
+                    }
+                }
+            }
+            return ra.Next(limit);
+        }
+    }
+
+
+    internal class display_func_code_rain : IShowable
+    {
+        // 代码雨效果参数
+        private int canvas_upper_length = 0;
+
+        // 每列的代码雨状态
+        private int[] list_descent_time_cnt;          // 下降时间计数器
+        private int[] list_descent_speed;            // 下降速度
+        private int[] list_head_position;             // 雨滴头部位置
+        private uint[] list_color;                    // 雨滴颜色
+        private int[] list_len;                      // 雨滴长度 3-5
+
+        private byte state = 0;
+        private uint[] temp_display_data;
+
+        public display_func_code_rain()
+        {
+            InitializeArrays();
+        }
+
+        private void InitializeArrays()
+        {
+            int maxColumns = DisplayConfig.CurrentConfig.Width;
+            
+            list_descent_time_cnt = new int[maxColumns];
+            list_descent_speed = new int[maxColumns];
+            list_head_position = new int[maxColumns];
+            list_color = new uint[maxColumns];
+            list_len = new int[maxColumns];
+            
+            temp_display_data = new uint[DisplayConfig.CurrentConfig.TotalLEDs];
+        }
+
+        // 初始化单个雨滴列
+        private void InitRainColumn(int columnIndex)
+        {
+            
+            if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8)
+            {
+                canvas_upper_length = 5;
+                // 初始化下降速度 (3-32)
+                list_descent_speed[columnIndex] = random_for_tick.get_random(12) + 1;
+
+                // 初始化雨滴头部位置 (0到canvas_upper_length-1)
+                list_head_position[columnIndex] = random_for_tick.get_random(canvas_upper_length);
+
+                // 雨滴长度 (4-6)
+                list_len[columnIndex] = random_for_tick.get_random(3) + 4;
+            }
+            else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
+            {
+                canvas_upper_length = 9;
+                // 初始化下降速度 (3-32)
+                list_descent_speed[columnIndex] = random_for_tick.get_random(5) + 1;
+
+                // 初始化雨滴头部位置 (0到canvas_upper_length-1)
+                list_head_position[columnIndex] = random_for_tick.get_random(canvas_upper_length);
+
+                // 雨滴长度 (4-6)
+                list_len[columnIndex] = random_for_tick.get_random(6) + 4;
+            }
+
+
+            // 初始化颜色 - 绿色代码雨效果
+            list_color[columnIndex] = 0x00FF00;
+
+            
+        }
+
+        // 设置亮度级别 (简化版本)
+        private uint SetBrightnessLevel(uint color, int level)
+        {
+            // 简单的亮度调整：根据level降低亮度
+            byte r = (byte)((color >> 16) & 0xFF);
+            byte g = (byte)((color >> 8) & 0xFF);
+            byte b = (byte)(color & 0xFF);
+
+            float brightness = 0;
+            // 亮度递减：头部最亮，尾部渐暗
+            if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8)
+            {
+                brightness = 1.0f - (level * 0.3f);
+                brightness = Math.Max(0.05f, brightness);
+            }
+            else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
+            {
+                brightness = 1.0f - (level * 0.15f);
+                brightness = Math.Max(0.05f, brightness);
+            }
+
+            r = (byte)(r * brightness);
+            g = (byte)(g * brightness);
+            b = (byte)(b * brightness);
+
+            return (uint)((r << 16) | (g << 8) | b);
+        }
+
+        public void show()
+        {
+            int totalColumns = DisplayConfig.CurrentConfig.Width;
+            int totalRows = DisplayConfig.CurrentConfig.Height;
+
+            // 初始化状态
+            if (state == 0)
+            {
+                Array.Clear(temp_display_data, 0, temp_display_data.Length);
+                Array.Clear(list_descent_speed, 0, list_descent_speed.Length);
+                Array.Clear(list_descent_time_cnt, 0, list_descent_time_cnt.Length);
+
+                for (int i = 0; i < totalColumns; i++)
+                {
+                    InitRainColumn(i);
+                }
+                state = 1;
+            }
+            else  // 开始下降
+            {
+                for (int i = 0; i < totalColumns; i++)
+                {
+                    list_descent_time_cnt[i]++;
+                    
+                    if (list_descent_time_cnt[i] == list_descent_speed[i]) // 达到下降时间，下降一格
+                    {
+                        list_descent_time_cnt[i] = 0;
+                        list_head_position[i]++;
+
+                        // 清除当前列的所有像素
+                        for (int j = 0; j < totalRows; j++)
+                        {
+                            int pixelIndex = i * totalRows + j;
+                            if (pixelIndex < temp_display_data.Length)
+                            {
+                                temp_display_data[pixelIndex] = 0;
+                            }
+                        }
+
+                        // 绘制雨滴效果
+                        // 头部
+                        if (list_head_position[i] >= canvas_upper_length && 
+                            list_head_position[i] < (canvas_upper_length + totalRows))
+                        {
+                            int displayPosition = list_head_position[i] - canvas_upper_length;
+                            if (displayPosition < totalRows)
+                            {
+                                int pixelIndex = i * totalRows + (totalRows - 1 - displayPosition);
+                                if (pixelIndex < temp_display_data.Length)
+                                {
+                                    temp_display_data[pixelIndex] = SetBrightnessLevel(list_color[i], 0);
+                                }
+                            }
+                        }
+
+                        // 身体部分
+                        for (int j = 0; j < (list_len[i] - 1); j++)
+                        {
+                            int bodyPosition = list_head_position[i] - j - 1;
+                            if (bodyPosition >= canvas_upper_length && 
+                                bodyPosition < (canvas_upper_length + totalRows))
+                            {
+                                int displayPosition = bodyPosition - canvas_upper_length;
+                                if (displayPosition < totalRows)
+                                {
+                                    int pixelIndex = i * totalRows + (totalRows - 1 - displayPosition);
+                                    if (pixelIndex < temp_display_data.Length)
+                                    {
+                                        temp_display_data[pixelIndex] = SetBrightnessLevel(list_color[i], j + 1);
+                                    }
+                                }
+                            }
+                        }
+
+                        // 如果雨滴完全离开屏幕，重新初始化
+                        if (list_head_position[i] - list_len[i] > (canvas_upper_length + totalRows))
+                        {
+                            InitRainColumn(i);
+                        }
+                    }
+                }
+
+                // 复制到全局显示数据
+                Array.Copy(temp_display_data, display_global_define.g_display_data, 
+                          Math.Min(temp_display_data.Length, display_global_define.g_display_data.Length));
+            }
+        }
+    }
 }
