@@ -156,7 +156,7 @@ namespace UART_TO_WS2812
         // 频谱幅度数据
         public static uint[] g_fft_amp = new uint[512];
 
-        public const int DISPLAY_REFRESH_INTERVAL = 20;     // 屏幕刷新间隔20ms
+        public const int DISPLAY_REFRESH_INTERVAL = 5;     // 屏幕刷新间隔20ms
 
         public static int g_display_func_index = 0;
 

@@ -187,7 +187,7 @@ namespace UART_TO_WS2812
 
                         SetDisplayFuncIndex(0); 
 
-                        ws2812Timer.Change(0, 5);
+                        ws2812Timer.Change(0, 30);
                     }
                     else
                     {
