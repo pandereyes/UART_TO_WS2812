@@ -121,10 +121,19 @@ namespace UART_TO_WS2812
             // 初始化串口检测定时器（每秒检测一次）
             InitializeSerialPortMonitor();
 
-            // 初始化TrackBar亮度控制
-            trackBar1.Value = 20; // 默认60%亮度
-            label1.Text = "亮度: 20%";
-            ws2812Instance.SetBrightness(20);
+            // 从配置加载亮度设置
+            int savedBrightness = ConfigManager.GetInt(ConfigManager.Keys.LEDBrightness, 20);
+            trackBar1.Value = savedBrightness;
+            label1.Text = $"亮度: {savedBrightness}%";
+            ws2812Instance.SetBrightness(savedBrightness);
+            display_refresh.UIBrightnessLevel = savedBrightness * 3 + 30;
+            
+            // 从配置加载串口设置
+            string savedSerialPort = ConfigManager.GetString(ConfigManager.Keys.SerialPort, "COM3");
+            if (comboBoxSerialPorts.Items.Contains(savedSerialPort))
+            {
+                comboBoxSerialPorts.SelectedItem = savedSerialPort;
+            }
             
             // 检查并清理可能残留的按钮
             CheckForStrayButtons();
@@ -191,6 +200,10 @@ namespace UART_TO_WS2812
                         SetDisplayFuncIndex(0); 
 
                         ws2812Timer.Change(0, 10);
+                        
+                        // 保存串口配置
+                        ConfigManager.SetString(ConfigManager.Keys.SerialPort, selectedPort);
+                        ConfigManager.SaveConfig();
                     }
                     else
                     {
@@ -243,7 +256,10 @@ namespace UART_TO_WS2812
                 ws2812Timer.Dispose();
             }
            
-            // 关闭串口并清空combobox选择
+            // 保存当前配置
+            ConfigManager.CollectAndSaveCurrentConfig();
+            
+            // 关闭串口并溅空combobox选择
             if (ws2812Instance != null)
             {
                 ws2812Instance.CloseSerial();
@@ -659,6 +675,10 @@ namespace UART_TO_WS2812
             
             // 更新标签显示当前亮度值
             label1.Text = $"亮度: {brightness}%";
+            
+            // 保存亮度配置
+            ConfigManager.SetInt(ConfigManager.Keys.LEDBrightness, brightness);
+            ConfigManager.SaveConfig();
         }
 
         private void button6_Click_1(object sender, EventArgs e)
@@ -726,6 +746,9 @@ namespace UART_TO_WS2812
                 
                 if (result == DialogResult.OK)
                 {
+                    // 配置已在AmbiLightSettingsForm中更新，现在保存配置
+                    ConfigManager.CollectAndSaveCurrentConfig();
+                    
                     // 设置完成后更新配置（不重新初始化整个系统）
                     if (DisplayConfig.CurrentBoardType == LEDBoardType.MonitorAmbiLight)
                     {
@@ -735,16 +758,19 @@ namespace UART_TO_WS2812
                             ws2812Instance.ReinitializeLEDArrays();
                         }
                         
-                        // 更新ambilight配置
-                        display_refresh.UpdateAmbiLightConfig();
+                        // 重新初始化显示数据数组
+                        display_global_define.ReinitializeDisplayData();
+                        
+                        // 重新初始化显示列表以应用新配置
+                        display_refresh.InitShowList();
                         
                         MessageBox.Show("屏光同步设置已更新", "设置完成", 
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("当前不在屏光同步模式下", "提示", 
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("环境光设置已保存\\n切换到屏光同步模式后生效", "设置完成", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }

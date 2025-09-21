@@ -1028,6 +1028,35 @@ internal class music_spectrum_get_color
                 sensitivity = 1;
             }
             state = 1;
+            // 保存配置
+            ConfigManager.SetInt(ConfigManager.Keys.MusicSensitivity, sensitivity);
+            ConfigManager.SaveConfig();
+        }
+
+        // 从配置加载灵敏度
+        public static void LoadSensitivityFromConfig()
+        {
+            sensitivity = (byte)ConfigManager.GetInt(ConfigManager.Keys.MusicSensitivity, 1);
+            if (sensitivity < 1) sensitivity = 1;
+            if (sensitivity > 5) sensitivity = 5;
+        }
+
+        // 获取当前灵敏度
+        public static byte GetSensitivity()
+        {
+            return sensitivity;
+        }
+
+        // 设置灵敏度
+        public static void SetSensitivity(byte value)
+        {
+            if (value >= 1 && value <= 5)
+            {
+                sensitivity = value;
+                state = 1;
+                ConfigManager.SetInt(ConfigManager.Keys.MusicSensitivity, sensitivity);
+                ConfigManager.SaveConfig();
+            }
         }
 
 
@@ -1209,11 +1238,76 @@ internal class music_spectrum_get_color
         private static bool imageLoaded = false;
 
         // 图像处理参数
-        public static float Brightness { get; set; } = 1.0f;
-        public static float Contrast { get; set; } = 2.5f;
-        public static float Saturation { get; set; } = 1.3f;
-        public static float Threshold { get; set; } = 0.5f;
-        public static bool ForceBinarization { get; set; } = false;
+        private static float brightness = 1.0f;
+        private static float contrast = 2.5f;
+        private static float saturation = 1.3f;
+        private static float threshold = 0.5f;
+        private static bool forceBinarization = false;
+
+        public static float Brightness 
+        { 
+            get => brightness; 
+            set 
+            { 
+                brightness = value;
+                ConfigManager.SetFloat(ConfigManager.Keys.PictureBrightness, value);
+                ConfigManager.SaveConfig();
+            } 
+        }
+        
+        public static float Contrast 
+        { 
+            get => contrast; 
+            set 
+            { 
+                contrast = value;
+                ConfigManager.SetFloat(ConfigManager.Keys.PictureContrast, value);
+                ConfigManager.SaveConfig();
+            } 
+        }
+        
+        public static float Saturation 
+        { 
+            get => saturation; 
+            set 
+            { 
+                saturation = value;
+                ConfigManager.SetFloat(ConfigManager.Keys.PictureSaturation, value);
+                ConfigManager.SaveConfig();
+            } 
+        }
+        
+        public static float Threshold 
+        { 
+            get => threshold; 
+            set 
+            { 
+                threshold = value;
+                ConfigManager.SetFloat(ConfigManager.Keys.PictureThreshold, value);
+                ConfigManager.SaveConfig();
+            } 
+        }
+        
+        public static bool ForceBinarization 
+        { 
+            get => forceBinarization; 
+            set 
+            { 
+                forceBinarization = value;
+                ConfigManager.SetBool(ConfigManager.Keys.PictureForceBinarization, value);
+                ConfigManager.SaveConfig();
+            } 
+        }
+
+        // 从配置加载图像处理参数
+        public static void LoadImageParamsFromConfig()
+        {
+            brightness = ConfigManager.GetFloat(ConfigManager.Keys.PictureBrightness, 1.0f);
+            contrast = ConfigManager.GetFloat(ConfigManager.Keys.PictureContrast, 2.5f);
+            saturation = ConfigManager.GetFloat(ConfigManager.Keys.PictureSaturation, 1.3f);
+            threshold = ConfigManager.GetFloat(ConfigManager.Keys.PictureThreshold, 0.5f);
+            forceBinarization = ConfigManager.GetBool(ConfigManager.Keys.PictureForceBinarization, false);
+        }
         private static Bitmap resizedBitmap = null;
 
         // GIF动画相关变量

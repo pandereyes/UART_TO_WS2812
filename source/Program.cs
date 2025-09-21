@@ -15,6 +15,11 @@ namespace UART_TO_WS2812
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
+            // 初始化配置管理器
+            ConfigManager.Initialize();
+            ConfigManager.ApplyConfig();
+            
             Application.Run(new Form1());
         }
     }

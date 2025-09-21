@@ -204,8 +204,15 @@ namespace UART_TO_WS2812
             numLeftLEDs.Value = config.LeftLEDs;
             numRightLEDs.Value = config.RightLEDs;
             
-            // 加载起始位置
-            comboStartPosition.SelectedIndex = (int)config.StartPosition;
+            // 加载起始位置 (映射枚举值到选项)
+            switch(config.StartPosition)
+            {
+                case AmbiLightStartPosition.LeftTop: comboStartPosition.SelectedIndex = 0; break;
+                case AmbiLightStartPosition.LeftBottom: comboStartPosition.SelectedIndex = 1; break;
+                case AmbiLightStartPosition.RightTop: comboStartPosition.SelectedIndex = 2; break;
+                case AmbiLightStartPosition.RightBottom: comboStartPosition.SelectedIndex = 3; break;
+                default: comboStartPosition.SelectedIndex = 0; break;
+            }
             
             // 加载环绕方向
             comboDirection.SelectedIndex = (int)config.Direction;
@@ -227,8 +234,16 @@ namespace UART_TO_WS2812
         {
             var config = DisplayConfig.AmbiLightSettings;
             
-            // 获取选择的起始位置
-            AmbiLightStartPosition startPosition = (AmbiLightStartPosition)comboStartPosition.SelectedIndex;
+            // 获取选择的起始位置 (映射选项到枚举值)
+            AmbiLightStartPosition startPosition;
+            switch(comboStartPosition.SelectedIndex)
+            {
+                case 0: startPosition = AmbiLightStartPosition.LeftTop; break;
+                case 1: startPosition = AmbiLightStartPosition.LeftBottom; break;
+                case 2: startPosition = AmbiLightStartPosition.RightTop; break;
+                case 3: startPosition = AmbiLightStartPosition.RightBottom; break;
+                default: startPosition = AmbiLightStartPosition.LeftTop; break;
+            }
             
             // 获取选择的环绕方向
             AmbiLightDirection direction = (AmbiLightDirection)comboDirection.SelectedIndex;
@@ -244,6 +259,9 @@ namespace UART_TO_WS2812
                 (int)numSamplePercent.Value,
                 (int)numRefreshRate.Value
             );
+            
+            // 保存配置到文件
+            ConfigManager.CollectAndSaveCurrentConfig();
         }
     }
 }

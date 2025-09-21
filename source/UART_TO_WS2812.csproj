@@ -105,6 +105,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AudioFFTAnalysis.cs" />
+    <Compile Include="ConfigManager.cs" />
     <Compile Include="DisplayConfig.cs" />
     <Compile Include="DisplayFunc16x16.cs" />
     <Compile Include="DisplayFunc1x30.cs" />

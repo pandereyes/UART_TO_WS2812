@@ -29,7 +29,7 @@ namespace UART_TO_WS2812
         }
     }
 
-    // BÕ¾APIÊı¾İÄ£ĞÍÀà
+    // BÕ¾APIï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½
     public class BilibiliApiResponse
     {
         public int code { get; set; }
@@ -44,26 +44,26 @@ namespace UART_TO_WS2812
         public int following { get; set; }
         public int whisper { get; set; }
         public int black { get; set; }
-        public int follower { get; set; }  // ·ÛË¿Êı
+        public int follower { get; set; }  // ï¿½ï¿½Ë¿ï¿½ï¿½
     }
 
-    // BÕ¾API·şÎñÀà
+    // BÕ¾APIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public static class BilibiliApiService
     {
         private static readonly HttpClient httpClient = new HttpClient();
 
         static BilibiliApiService()
         {
-            // ÉèÖÃUser-Agent±ÜÃâ±»·´ÅÀ
+            // ï¿½ï¿½ï¿½ï¿½User-Agentï¿½ï¿½ï¿½â±»ï¿½ï¿½ï¿½ï¿½
             httpClient.DefaultRequestHeaders.Add("User-Agent",
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36");
         }
 
         /// <summary>
-        /// »ñÈ¡BÕ¾ÓÃ»§·ÛË¿Êı¾İ
+        /// ï¿½ï¿½È¡BÕ¾ï¿½Ã»ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½
         /// </summary>
-        /// <param name="uid">BÕ¾ÓÃ»§ID</param>
-        /// <returns>·ÛË¿Êı£¬»ñÈ¡Ê§°Ü·µ»Ø-1</returns>
+        /// <param name="uid">BÕ¾ï¿½Ã»ï¿½ID</param>
+        /// <returns>ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡Ê§ï¿½Ü·ï¿½ï¿½ï¿½-1</returns>
         public static async Task<int> GetFollowerCountAsync(long uid)
         {
             try
@@ -71,8 +71,8 @@ namespace UART_TO_WS2812
                 string url = $"https://api.bilibili.com/x/relation/stat?vmid={uid}";
                 string jsonResponse = await httpClient.GetStringAsync(url);
 
-                // Ê¹ÓÃÕıÔò±í´ïÊ½¼òµ¥½âÎöJSONÖĞµÄfollower×Ö¶Î
-                // JSON¸ñÊ½: {"code":0,"message":"0","ttl":1,"data":{"mid":33028512,"following":362,"whisper":0,"black":2,"follower":250}}
+                // Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½òµ¥½ï¿½ï¿½ï¿½JSONï¿½Ğµï¿½followerï¿½Ö¶ï¿½
+                // JSONï¿½ï¿½Ê½: {"code":0,"message":"0","ttl":1,"data":{"mid":33028512,"following":362,"whisper":0,"black":2,"follower":250}}
                 var followerMatch = Regex.Match(jsonResponse, @"""follower"":(\d+)");
                 var codeMatch = Regex.Match(jsonResponse, @"""code"":(\d+)");
 
@@ -88,17 +88,17 @@ namespace UART_TO_WS2812
             }
             catch (Exception ex)
             {
-                // ¼ÇÂ¼´íÎóµ«²»Å×³öÒì³£
-                System.Diagnostics.Debug.WriteLine($"»ñÈ¡BÕ¾·ÛË¿ÊıÊ§°Ü: {ex.Message}");
+                // ï¿½ï¿½Â¼ï¿½ï¿½ï¿½óµ«²ï¿½ï¿½×³ï¿½ï¿½ì³£
+                System.Diagnostics.Debug.WriteLine($"ï¿½ï¿½È¡BÕ¾ï¿½ï¿½Ë¿ï¿½ï¿½Ê§ï¿½ï¿½: {ex.Message}");
                 return -1;
             }
         }
 
         /// <summary>
-        /// Í¬²½°æ±¾µÄ»ñÈ¡·ÛË¿Êı·½·¨
+        /// Í¬ï¿½ï¿½ï¿½æ±¾ï¿½Ä»ï¿½È¡ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
-        /// <param name="uid">BÕ¾ÓÃ»§ID</param>
-        /// <returns>·ÛË¿Êı£¬»ñÈ¡Ê§°Ü·µ»Ø-1</returns>
+        /// <param name="uid">BÕ¾ï¿½Ã»ï¿½ID</param>
+        /// <returns>ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡Ê§ï¿½Ü·ï¿½ï¿½ï¿½-1</returns>
         public static int GetFollowerCount(long uid)
         {
             try
@@ -112,25 +112,42 @@ namespace UART_TO_WS2812
         }
     }
 
-    // BÕ¾·ÛË¿ÊıÏÔÊ¾¹¦ÄÜÀà
+    // BÕ¾ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     internal class display_func_bilibili_fans : IShowable
     {
-        // BÕ¾ÓÃ»§ID£¬ĞèÒªÉèÖÃ
-        public static long BilibiliUID { get; set; } = 33028512; // Ä¬ÈÏID£¬¿ÉÍ¨¹ıUIÉèÖÃ
+        // BÕ¾ï¿½Ã»ï¿½IDï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
+        private static long bilibiliUID = 33028512;
+        
+        public static long BilibiliUID 
+        { 
+            get => bilibiliUID; 
+            set 
+            { 
+                bilibiliUID = value;
+                ConfigManager.SetLong(ConfigManager.Keys.BilibiliUID, value);
+                ConfigManager.SaveConfig();
+            } 
+        }
 
-        // ·ÛË¿Êı¾İ
+        // ä»é…ç½®åŠ è½½UID
+        public static void LoadUIDFromConfig()
+        {
+            bilibiliUID = ConfigManager.GetLong(ConfigManager.Keys.BilibiliUID, 33028512);
+        }
+
+        // ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½
         private static int currentFollowers = -1;
         private static int previousFollowers = -1;
         private static DateTime lastUpdateTime = DateTime.MinValue;
-        private static readonly TimeSpan updateInterval = TimeSpan.FromSeconds(5); // 30Ãë¸üĞÂÒ»´Î
+        private static readonly TimeSpan updateInterval = TimeSpan.FromSeconds(5); // 30ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 
-        // ÉÁË¸Ğ§¹ûÏà¹Ø
+        // ï¿½ï¿½Ë¸Ğ§ï¿½ï¿½ï¿½ï¿½ï¿½
         private static int blink_cnt = 0;
         private static bool isShowingBlink = false;
         private static DateTime lastBlinkTime = DateTime.MinValue;
         private static readonly TimeSpan blinkInterval = TimeSpan.FromMilliseconds(500);
 
-        // bÕ¾Í¼±ê
+        // bÕ¾Í¼ï¿½ï¿½
         private static UInt32 bilibili_color = 0x0000FF;
 
         private static readonly byte[,,] bilibiliIcon = new byte[1, 8, 8]
@@ -150,14 +167,14 @@ namespace UART_TO_WS2812
         public static void showBilibiliIcon(byte x, byte y, uint color)
         {
 
-            // ÔÚÖ¸¶¨3x5ÇøÓòÏÔÊ¾Êı×Ö
+            // ï¿½ï¿½Ö¸ï¿½ï¿½3x5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
                     if (bilibiliIcon[0, 7 - i, j] == 1)
                     {
-                        // È·±£×ø±êÔÚÏÔÊ¾·¶Î§ÄÚ
+                        // È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Î§ï¿½ï¿½
                         if ((x + j) < DisplayConfig.CurrentConfig.Width && (y + i) < DisplayConfig.CurrentConfig.Height)
                         {
                             display_global_define.g_display_data[(x + j) * DisplayConfig.CurrentConfig.Width + (y + i)] = color;
@@ -172,14 +189,14 @@ namespace UART_TO_WS2812
         {
             DateTime now = DateTime.Now;
 
-            // ¶¨ÆÚ¸üĞÂ·ÛË¿Êı¾İ
+            // ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½Â·ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½
             if (now - lastUpdateTime > updateInterval)
             {
                 UpdateFollowersData();
                 lastUpdateTime = now;
             }
 
-            // Çå¿ÕÏÔÊ¾Êı¾İ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
             Array.Clear(display_global_define.g_display_data, 0, display_global_define.g_display_data.Length);
 
             if (isShowingBlink)
@@ -207,7 +224,7 @@ namespace UART_TO_WS2812
             ShowFollowersCount();
         }
 
-        // ¸üĞÂ·ÛË¿Êı¾İ
+        // ï¿½ï¿½ï¿½Â·ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½
         private void UpdateFollowersData()
         {
             Task.Run(async () =>
@@ -221,7 +238,7 @@ namespace UART_TO_WS2812
                         previousFollowers = currentFollowers;
                         currentFollowers = newFollowers;
 
-                        // ¼ì²â·ÛË¿ÊıÔö¼Ó
+                        // ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                         if (previousFollowers > 0 && newFollowers > previousFollowers)
                         {
                             isShowingBlink = true;
@@ -231,33 +248,33 @@ namespace UART_TO_WS2812
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"¸üĞÂ·ÛË¿Êı¾İÊ§°Ü: {ex.Message}");
+                    System.Diagnostics.Debug.WriteLine($"ï¿½ï¿½ï¿½Â·ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½: {ex.Message}");
                 }
             });
         }
 
-        // ÏÔÊ¾ÆÕÍ¨µÄ·ÛË¿Êı
+        // ï¿½ï¿½Ê¾ï¿½ï¿½Í¨ï¿½Ä·ï¿½Ë¿ï¿½ï¿½
         private void ShowFollowersCount()
         {
             if (currentFollowers <= 0)
             {
-                // ÏÔÊ¾"»ñÈ¡ÖĞ..."µÄÌáÊ¾
+                // ï¿½ï¿½Ê¾"ï¿½ï¿½È¡ï¿½ï¿½..."ï¿½ï¿½ï¿½ï¿½Ê¾
                 ShowLoadingMessage();
                 return;
             }
 
-            // ½«·ÛË¿Êı×ª»»Îª×Ö·û´®²¢ÏÔÊ¾
+            // ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½×ªï¿½ï¿½Îªï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
             string fansStr = currentFollowers.ToString();
-            DisplayNumberString(fansStr, 0x00FF00); // ÂÌÉ«ÏÔÊ¾
+            DisplayNumberString(fansStr, 0x00FF00); // ï¿½ï¿½É«ï¿½ï¿½Ê¾
         }
 
-        // ÏÔÊ¾¼ÓÔØÖĞÏûÏ¢
+        // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
         private void ShowLoadingMessage()
         {
-            // ¼òµ¥µÄµãÕó¶¯»­±íÊ¾¼ÓÔØÖĞ
+            // ï¿½òµ¥µÄµï¿½ï¿½ó¶¯»ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             int animFrame = (int)((DateTime.Now.Ticks / TimeSpan.TicksPerSecond) % 4);
 
-            // ÔÚÖĞÑëÏÔÊ¾Ò»¸öĞı×ªµÄµã
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾Ò»ï¿½ï¿½ï¿½ï¿½×ªï¿½Äµï¿½
             int centerX = DisplayConfig.CurrentConfig.Width / 2;
             int centerY = DisplayConfig.CurrentConfig.Height / 2 - 4;
 
@@ -272,18 +289,18 @@ namespace UART_TO_WS2812
                 int index = x * DisplayConfig.CurrentConfig.Height + y;
                 if (index < display_global_define.g_display_data.Length)
                 {
-                    display_global_define.g_display_data[index] = 0x0080FF; // À¶É«¼ÓÔØÖ¸Ê¾
+                    display_global_define.g_display_data[index] = 0x0080FF; // ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½Ö¸Ê¾
                 }
             }
         }
 
-        // ÏÔÊ¾Êı×Ö×Ö·û´®
+        // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
         private void DisplayNumberString(string numberStr, uint color, int yOffset = 0)
         {
             if (string.IsNullOrEmpty(numberStr)) return;
 
-            // ¼ÆËãÆğÊ¼Î»ÖÃÒÔ¾ÓÖĞÏÔÊ¾
-            int totalWidth = numberStr.Length * 4 - 1; // Ã¿¸öÊı×Ö3¿í¶È + 1¼ä¸ô
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+            int totalWidth = numberStr.Length * 4 - 1; // Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½ + 1ï¿½ï¿½ï¿½
             int startX = Math.Max(0, (DisplayConfig.CurrentConfig.Width - totalWidth) / 2) + 1;
             int startY = Math.Max(0, (DisplayConfig.CurrentConfig.Height - 5 + yOffset) / 2) - 4;
 
@@ -293,7 +310,7 @@ namespace UART_TO_WS2812
 
                 if (c >= '0' && c <= '9')
                 {
-                    // ÏÔÊ¾Êı×Ö
+                    // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
                     byte digit = (byte)(c - '0');
                     int x = startX + i * 4;
 
@@ -305,17 +322,17 @@ namespace UART_TO_WS2812
             }
         }
 
-        // ÉèÖÃBÕ¾ÓÃ»§ID
+        // ï¿½ï¿½ï¿½ï¿½BÕ¾ï¿½Ã»ï¿½ID
         public static void SetBilibiliUID(long uid)
         {
             BilibiliUID = uid;
-            // ÖØÖÃÊı¾İ£¬Ç¿ÖÆÖØĞÂ»ñÈ¡
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ£ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½È¡
             currentFollowers = -1;
             previousFollowers = -1;
             lastUpdateTime = DateTime.MinValue;
         }
 
-        // »ñÈ¡µ±Ç°·ÛË¿Êı
+        // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½Ë¿ï¿½ï¿½
         public static int GetCurrentFollowers()
         {
             return currentFollowers;
