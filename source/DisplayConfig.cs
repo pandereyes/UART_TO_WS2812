@@ -319,9 +319,9 @@ namespace UART_TO_WS2812
     {
         public static Dictionary<LEDBoardType, ButtonControlConfig> ButtonConfigs = new Dictionary<LEDBoardType, ButtonControlConfig>
         {
-            { LEDBoardType.Board8x8, new ButtonControlConfig() }, // 所有按钮都可用
-            { LEDBoardType.Board16x16, new ButtonControlConfig() }, // 所有按钮都可用
-            { LEDBoardType.Board1x30, new ButtonControlConfig() }, // 所有按钮都可用
+            { LEDBoardType.Board8x8, new ButtonControlConfig(new string[] { "ColorShowButton","button1","button3","button4","button5","button6","button7","button11","button12","button13"},true) }, 
+            { LEDBoardType.Board16x16, new ButtonControlConfig(new string[] {"ColorShowButton","button1", "button3","button4","button5","button6","button7", "button8", "button9", "button11","button12","button13" ,"button14","button15"}, true) },
+            { LEDBoardType.Board1x30, new ButtonControlConfig(new string[] { "button3","button5", "button12" }, true) }, // 所有按钮都可用
             { LEDBoardType.MonitorAmbiLight, new ButtonControlConfig(new string[] { "button3","button9", "button15" }, true) } // 只允许屏光同步和灯条设置按钮
         };
 
