@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,7 +17,24 @@ namespace UART_TO_WS2812
     {
         Board8x8,
         Board16x16,
-        Board1x30
+        Board1x30,
+        MonitorAmbiLight,
+    }
+    
+    // 环境光起始位置枚举
+    public enum AmbiLightStartPosition
+    {
+        LeftTop,    // 左上角
+        LeftBottom, // 左下角
+        RightTop,   // 右上角
+        RightBottom // 右下角
+    }
+    
+    // 环绕方向枚举
+    public enum AmbiLightDirection
+    {
+        Clockwise,        // 顺时针
+        CounterClockwise  // 逆时针
     }
 
     public interface IShowable
@@ -187,8 +205,20 @@ namespace UART_TO_WS2812
         {
             { LEDBoardType.Board8x8, new BoardConfig(8, 8, 64) },
             { LEDBoardType.Board16x16, new BoardConfig(16, 16, 256) },
-            { LEDBoardType.Board1x30, new BoardConfig(1, 30, 30) }
+            { LEDBoardType.Board1x30, new BoardConfig(1, 30, 30) },
+            { LEDBoardType.MonitorAmbiLight, new AmbiLightConfig() },
         };
+        
+        // 环境光配置属性
+        public static AmbiLightConfig AmbiLightSettings 
+        {
+            get
+            {
+                if (CurrentBoardType == LEDBoardType.MonitorAmbiLight)
+                    return (AmbiLightConfig)BoardConfigs[CurrentBoardType];
+                return new AmbiLightConfig();
+            }
+        }
 
         // 获取当前灯板配置
         public static BoardConfig CurrentConfig => BoardConfigs[CurrentBoardType];
@@ -197,6 +227,29 @@ namespace UART_TO_WS2812
         public static void SetBoardType(LEDBoardType boardType)
         {
             CurrentBoardType = boardType;
+        }
+
+        // 更新按钮状态的工具方法
+        public static void UpdateButtonStates(Form form)
+        {
+            var config = BoardButtonControlConfig.GetControlConfig(CurrentBoardType);
+            
+            foreach (Control control in form.Controls)
+            {
+                if (control is Button button && !control.Name.StartsWith("btn_")) // 排除LED按钮
+                {
+                    if (config.DisableAllExcept)
+                    {
+                        // 禁用所有按钮，除了指定的
+                        button.Enabled = config.EnabledButtons.Contains(button.Name);
+                    }
+                    else
+                    {
+                        // 启用所有按钮，除了禁用列表中的
+                        button.Enabled = !config.DisabledButtons.Contains(button.Name);
+                    }
+                }
+            }
         }
 
         // 根据字符串选择灯板类型
@@ -213,6 +266,9 @@ namespace UART_TO_WS2812
                 case "1x30":
                     SetBoardType(LEDBoardType.Board1x30);
                     break;
+                case "ambilight":
+                    SetBoardType(LEDBoardType.MonitorAmbiLight);
+                    break;
                 default:
                     SetBoardType(LEDBoardType.Board8x8);
                     break;
@@ -224,7 +280,7 @@ namespace UART_TO_WS2812
     {
         public int Width { get; }
         public int Height { get; }
-        public int TotalLEDs { get; }
+        public int TotalLEDs { get; protected set; }
         public string DisplayName { get; }
 
         public BoardConfig(int width, int height, int totalLEDs)
@@ -233,6 +289,98 @@ namespace UART_TO_WS2812
             Height = height;
             TotalLEDs = totalLEDs;
             DisplayName = $"{width}x{height}";
+        }
+    }
+    
+    // 按钮控制配置
+    public class ButtonControlConfig
+    {
+        public string[] EnabledButtons { get; set; }
+        public string[] DisabledButtons { get; set; }
+        public bool DisableAllExcept { get; set; }
+
+        public ButtonControlConfig()
+        {
+            EnabledButtons = new string[0];
+            DisabledButtons = new string[0];
+            DisableAllExcept = false;
+        }
+
+        public ButtonControlConfig(string[] enabledButtons, bool disableAllExcept = false)
+        {
+            EnabledButtons = enabledButtons ?? new string[0];
+            DisabledButtons = new string[0];
+            DisableAllExcept = disableAllExcept;
+        }
+    }
+
+    // 灯板类型按钮控制配置
+    public static class BoardButtonControlConfig
+    {
+        public static Dictionary<LEDBoardType, ButtonControlConfig> ButtonConfigs = new Dictionary<LEDBoardType, ButtonControlConfig>
+        {
+            { LEDBoardType.Board8x8, new ButtonControlConfig() }, // 所有按钮都可用
+            { LEDBoardType.Board16x16, new ButtonControlConfig() }, // 所有按钮都可用
+            { LEDBoardType.Board1x30, new ButtonControlConfig() }, // 所有按钮都可用
+            { LEDBoardType.MonitorAmbiLight, new ButtonControlConfig(new string[] { "button3","button9", "button15" }, true) } // 只允许屏光同步和灯条设置按钮
+        };
+
+        public static ButtonControlConfig GetControlConfig(LEDBoardType boardType)
+        {
+            return ButtonConfigs.ContainsKey(boardType) ? ButtonConfigs[boardType] : new ButtonControlConfig();
+        }
+    }
+
+    // 环境光配置类
+    public class AmbiLightConfig : BoardConfig 
+    {
+        public int TopLEDs { get; set; } = 30;     // 顶部LED数量
+        public int BottomLEDs { get; set; } = 30;   // 底部LED数量
+        public int LeftLEDs { get; set; } = 20;     // 左侧LED数量
+        public int RightLEDs { get; set; } = 20;    // 右侧LED数量
+        public int SampleInterval { get; set; } = 33; // 采样间隔(ms) - 默认30Hz
+        public int SampleWidth { get; set; } = 20;   // 采样宽度(像素)
+        public int SamplePercent { get; set; } = 2;  // 边缘采样百分比
+        public int RefreshRate { get; set; } = 30;   // 刷新频率Hz
+        public AmbiLightStartPosition StartPosition { get; set; } = AmbiLightStartPosition.LeftTop;
+        public AmbiLightDirection Direction { get; set; } = AmbiLightDirection.Clockwise;
+
+        public AmbiLightConfig() : base(1, 100, 100) // 默认100个LED
+        {
+            // 根据四边LED数量计算总数
+            TotalLEDs = TopLEDs + BottomLEDs + LeftLEDs + RightLEDs;
+        }
+
+        // 更新LED配置（简单版本，保持兼容）
+        public void UpdateConfig(int total, AmbiLightStartPosition startPos)
+        {
+            TotalLEDs = total;
+            StartPosition = startPos;
+            
+            // 平均分配LED到四边
+            int avgPerSide = total / 4;
+            TopLEDs = avgPerSide;
+            BottomLEDs = avgPerSide;
+            LeftLEDs = avgPerSide;
+            RightLEDs = total - (avgPerSide * 3); // 剩余的分配给右侧
+        }
+        
+        // 更新LED配置（详细版本）
+        public void UpdateConfig(int top, int bottom, int left, int right,
+            AmbiLightStartPosition startPos = AmbiLightStartPosition.LeftTop,
+            AmbiLightDirection direction = AmbiLightDirection.Clockwise,
+            int samplePercent = 2, int refreshRate = 30)
+        {
+            TopLEDs = top;
+            BottomLEDs = bottom;
+            LeftLEDs = left;
+            RightLEDs = right;
+            TotalLEDs = TopLEDs + BottomLEDs + LeftLEDs + RightLEDs;
+            StartPosition = startPos;
+            Direction = direction;
+            SamplePercent = samplePercent;
+            RefreshRate = refreshRate;
+            SampleInterval = 1000 / refreshRate; // 根据频率计算间隔
         }
     }
 
@@ -705,9 +853,30 @@ internal class music_spectrum_get_color
             }
         }
 
+        private static display_ambilight_init ambiLightInit = null;
+        
         public static void InitShowList()
         {
             display_refresh.display_showlist_clear();
+            
+            // 清理之前的环境光初始化器
+            if (ambiLightInit != null)
+            {
+                try
+                {
+                    ambiLightInit.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    // 记录错误但继续执行
+                    System.Diagnostics.Debug.WriteLine($"销毁ambilight实例时出错: {ex.Message}");
+                }
+                finally
+                {
+                    ambiLightInit = null;
+                }
+            }
+            
             if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8)
             {
                 // 初始化8x8显示功能列表
@@ -726,12 +895,69 @@ internal class music_spectrum_get_color
                 display_1x30_init displayInit = new display_1x30_init();
                 displayInit.showlist_init();
             }
+            else if (DisplayConfig.CurrentBoardType == LEDBoardType.MonitorAmbiLight)
+            {
+                // 初始化环境光显示功能列表
+                try
+                {
+                    ambiLightInit = new display_ambilight_init();
+                    ambiLightInit.showlist_init();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"初始化ambilight时出错: {ex.Message}");
+                    // 如果初始化失败，回退到8x8模式
+                    display_8x8_init displayInit = new display_8x8_init();
+                    displayInit.showlist_init();
+                }
+            }
             else
             {
-                // 初始化8x8显示功能列表
+                // 默认初始化8x8显示功能列表
                 display_8x8_init displayInit = new display_8x8_init();
                 displayInit.showlist_init();
             }
+        }
+        
+        // 更新环境光配置
+        public static void UpdateAmbiLightConfig()
+        {
+            if (DisplayConfig.CurrentBoardType == LEDBoardType.MonitorAmbiLight && ambiLightInit != null)
+            {
+                try
+                {
+                    // 重新初始化显示数据数组
+                    display_global_define.ReinitializeDisplayData();
+                    
+                    // 更新ambilight配置
+                    ambiLightInit.UpdateConfig();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"更新ambilight配置时出错: {ex.Message}");
+                }
+            }
+        }
+        
+        // 清理环境光资源
+        public static void CleanupAmbiLight()
+        {
+            if (ambiLightInit != null)
+            {
+                try
+                {
+                    ambiLightInit.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"清理ambilight资源时出错: {ex.Message}");
+                }
+                finally
+                {
+                    ambiLightInit = null;
+                }
+            }
+        }
         }
 
     }
@@ -1734,4 +1960,3 @@ internal class music_spectrum_get_color
             }
         }
     }
-}

@@ -1,3 +1,9 @@
+E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\UART_TO_WS2812.csproj.AssemblyReference.cache
+E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\UART_TO_WS2812.Form1.resources
+E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\UART_TO_WS2812.ImageSettingsForm.resources
+E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\串口驱动WS2812.Properties.Resources.resources
+E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\UART_TO_WS2812.csproj.GenerateResource.cache
+E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\UART_TO_WS2812.csproj.CoreCompileInputs.cache
 E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\bin\Debug\串口驱动WS2812.exe.config
 E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\bin\Debug\串口驱动WS2812.exe
 E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\bin\Debug\串口驱动WS2812.pdb
@@ -21,12 +27,6 @@ E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\bin\Debug\
 E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\bin\Debug\NAudio.WinMM.xml
 E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\bin\Debug\System.Security.AccessControl.xml
 E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\bin\Debug\System.Security.Principal.Windows.xml
-E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\UART_TO_WS2812.csproj.AssemblyReference.cache
-E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\UART_TO_WS2812.Form1.resources
-E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\UART_TO_WS2812.ImageSettingsForm.resources
-E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\串口驱动WS2812.Properties.Resources.resources
-E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\UART_TO_WS2812.csproj.GenerateResource.cache
-E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\UART_TO_WS2812.csproj.CoreCompileInputs.cache
 E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\UART_TO_.C30A2773.Up2Date
 E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\串口驱动WS2812.exe
 E:\1.work\4.HUAYING\1.project\4.UART_WS2812\串口驱动WS2812\source\obj\Debug\串口驱动WS2812.pdb

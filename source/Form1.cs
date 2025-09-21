@@ -130,6 +130,9 @@ namespace UART_TO_WS2812
             CheckForStrayButtons();
 
             display_refresh.InitShowList();
+            
+            // 更新按钮状态
+            DisplayConfig.UpdateButtonStates(this);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -409,6 +412,9 @@ namespace UART_TO_WS2812
                 
                 // 重置显示模式
                 SetDisplayFuncIndex(0);
+                
+                // 更新按钮状态
+                DisplayConfig.UpdateButtonStates(this);
             }
         }
         
@@ -571,6 +577,12 @@ namespace UART_TO_WS2812
             }
             buttonList.Clear();
             
+            // 如果是环境光模式，不创建按钮
+            if (DisplayConfig.CurrentBoardType == LEDBoardType.MonitorAmbiLight)
+            {
+                return;
+            }
+            
             // 创建新的按钮
             int b_size = 30; // 按钮大小
             int b_interval = 2; // 按钮间距
@@ -674,7 +686,103 @@ namespace UART_TO_WS2812
 
         private void button9_Click(object sender, EventArgs e)
         {
-
+            // 屏光同步按钮 - 切换到环境光模式
+            try
+            {
+                if (DisplayConfig.CurrentBoardType == LEDBoardType.MonitorAmbiLight)
+                {
+                    // 已经在环境光模式，不需要重新初始化
+                    MessageBox.Show("已经在屏光同步模式", "屏光同步", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                
+                // 切换到环境光灯板类型
+                DisplayConfig.SetBoardType(LEDBoardType.MonitorAmbiLight);
+                
+                // 重新初始化显示系统
+                ReinitializeDisplaySystem();
+                
+                // 设置显示模式为环境光模式
+                display_global_define.g_display_func_index = 0;
+                
+                MessageBox.Show("已切换到屏光同步模式", "屏光同步", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"切换屏光同步模式失败: {ex.Message}", "错误", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
+        private void button15_Click(object sender, EventArgs e)
+        {
+            // 灯条设置按钮 - 打开屏光同步设置对话框
+            try
+            {
+                AmbiLightSettingsForm settingsForm = new AmbiLightSettingsForm();
+                DialogResult result = settingsForm.ShowDialog();
+                
+                if (result == DialogResult.OK)
+                {
+                    // 设置完成后更新配置（不重新初始化整个系统）
+                    if (DisplayConfig.CurrentBoardType == LEDBoardType.MonitorAmbiLight)
+                    {
+                        // 更新WS2812驱动数组大小
+                        if (ws2812Instance != null)
+                        {
+                            ws2812Instance.ReinitializeLEDArrays();
+                        }
+                        
+                        // 更新ambilight配置
+                        display_refresh.UpdateAmbiLightConfig();
+                        
+                        MessageBox.Show("屏光同步设置已更新", "设置完成", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("当前不在屏光同步模式下", "提示", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"打开设置对话框失败: {ex.Message}", "错误", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
+        // 重新初始化显示系统
+        private void ReinitializeDisplaySystem()
+        {
+            try
+            {
+                // 停止当前显示刷新
+                display_refresh.StopRefreshTimer();
+                
+                // 重新初始化显示数据
+                display_global_define.ReinitializeDisplayData();
+                
+                // 重新初始化WS2812驱动数组
+                if (ws2812Instance != null)
+                {
+                    ws2812Instance.ReinitializeLEDArrays();
+                }
+                
+                // 重新初始化显示功能列表
+                display_refresh.InitShowList();
+                
+                // 重新启动显示刷新
+                display_refresh.StartRefreshTimer();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"重新初始化显示系统失败: {ex.Message}", "错误", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -771,7 +879,7 @@ namespace UART_TO_WS2812
             }
         }
 
-        string url = "www.bilibili.com/video/BV1R4hRz3E7H/?spm_id_from=333.1387.homepage.video_card.click";
+        string url = "https://space.bilibili.com/33028512?spm_id_from=333.1007.0.0";
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(url);

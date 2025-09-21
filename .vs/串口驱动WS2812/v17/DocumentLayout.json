@@ -11,28 +11,32 @@
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\displayconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\displayconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|e:\\1.work\\4.huaying\\1.project\\4.uart_ws2812\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|e:\\1.work\\4.huaying\\1.project\\4.uart_ws2812\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\displayfunc8x8.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\displayfunc8x8.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|e:\\1.work\\4.huaying\\1.project\\4.uart_ws2812\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\displayconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\displayconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|e:\\1.work\\4.huaying\\1.project\\4.uart_ws2812\\\u4E32\u53E3\u9A71\u52A8ws2812\\source\\displayfuncambilight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\displayfuncambilight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\displayfunc16x16.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\displayfunc16x16.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\displayfunc1x30.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\displayfunc1x30.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\displayfunc8x8.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\UART_TO_WS2812.csproj|solutionrelative:source\\displayfunc8x8.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -49,14 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\displayconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\displayconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ws2812_driver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|solutionrelative:source\\ws2812_driver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{145D2E5C-F8CD-4A31-8D86-EF0AFD9C954B}|source\\\u4E32\u53E3\u9A71\u52A8WS2812.csproj|E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\displayfunc16x16.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -82,20 +78,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Form1.cs [\u8BBE\u8BA1]",
-              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs",
-              "RelativeDocumentMoniker": "source\\Form1.cs",
-              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs [\u8BBE\u8BA1]",
-              "RelativeToolTip": "source\\Form1.cs [\u8BBE\u8BA1]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T11:05:29.874Z",
-              "EditorCaption": " [\u8BBE\u8BA1]"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -104,60 +88,48 @@
               "RelativeDocumentMoniker": "source\\ws2812_driver.cs",
               "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ws2812_driver.cs",
               "RelativeToolTip": "source\\ws2812_driver.cs",
-              "ViewState": "AgIAAAUBAAAAAAAAAAAAABMBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEsBAAAAAAAAAAAuwAwAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T12:27:01.011Z",
+              "WhenOpened": "2025-09-21T08:28:36.811Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Form1.Designer.cs",
-              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.Designer.cs",
-              "RelativeDocumentMoniker": "source\\Form1.Designer.cs",
-              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.Designer.cs",
-              "RelativeToolTip": "source\\Form1.Designer.cs",
-              "ViewState": "AgIAAPIAAAAAAAAAAAAEwP8AAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-11T07:45:34.033Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "DisplayConfig.cs",
               "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayConfig.cs",
               "RelativeDocumentMoniker": "source\\DisplayConfig.cs",
               "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayConfig.cs",
               "RelativeToolTip": "source\\DisplayConfig.cs",
-              "ViewState": "AgIAAJEAAAAAAAAAAAD4v54AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADgBAAAAAAAAAAAAwEQBAACFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-31T09:24:49.612Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DisplayFunc8x8.cs",
-              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc8x8.cs",
-              "RelativeDocumentMoniker": "source\\DisplayFunc8x8.cs",
-              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc8x8.cs",
-              "RelativeToolTip": "source\\DisplayFunc8x8.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "DisplayFuncAmbiLight.cs",
+              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFuncAmbiLight.cs",
+              "RelativeDocumentMoniker": "source\\DisplayFuncAmbiLight.cs",
+              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFuncAmbiLight.cs",
+              "RelativeToolTip": "source\\DisplayFuncAmbiLight.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T07:16:08.651Z"
+              "WhenOpened": "2025-09-21T07:34:17.131Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "DisplayFunc16x16.cs",
-              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc16x16.cs",
-              "RelativeDocumentMoniker": "source\\DisplayFunc16x16.cs",
-              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc16x16.cs",
-              "RelativeToolTip": "source\\DisplayFunc16x16.cs",
-              "ViewState": "AgIAALUAAAAAAAAAAAAjwMMAAAAVAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "Form1.cs [\u8BBE\u8BA1]",
+              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs",
+              "RelativeDocumentMoniker": "source\\Form1.cs",
+              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs [\u8BBE\u8BA1]",
+              "RelativeToolTip": "source\\Form1.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T12:27:01.062Z"
+              "WhenOpened": "2025-09-21T04:26:03.403Z",
+              "EditorCaption": " [\u8BBE\u8BA1]"
             },
             {
               "$type": "Document",
@@ -167,26 +139,14 @@
               "RelativeDocumentMoniker": "source\\Form1.cs",
               "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs",
               "RelativeToolTip": "source\\Form1.cs",
-              "ViewState": "AgIAALAAAAAAAAAAAAAEwL4AAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAGUDAAAAAAAAAAAAwHUDAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-11T07:34:28.137Z",
+              "WhenOpened": "2025-09-21T04:18:48.705Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "DisplayFunc1x30.cs",
-              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc1x30.cs",
-              "RelativeDocumentMoniker": "source\\DisplayFunc1x30.cs",
-              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc1x30.cs",
-              "RelativeToolTip": "source\\DisplayFunc1x30.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAApwBUAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-11T07:39:10.065Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "DisplayFunc8x8.cs",
               "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc8x8.cs",
               "RelativeDocumentMoniker": "source\\DisplayFunc8x8.cs",
@@ -194,47 +154,23 @@
               "RelativeToolTip": "source\\DisplayFunc8x8.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAlwBsAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-27T12:37:06.645Z"
+              "WhenOpened": "2025-09-10T07:16:08.651Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Form1.Designer.cs",
-              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.Designer.cs",
-              "RelativeDocumentMoniker": "source\\Form1.Designer.cs",
-              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.Designer.cs",
-              "RelativeToolTip": "source\\Form1.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAIAAAAAAAAAA==",
+              "DocumentIndex": 7,
+              "Title": "DisplayFunc16x16.cs",
+              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc16x16.cs",
+              "RelativeDocumentMoniker": "source\\DisplayFunc16x16.cs",
+              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc16x16.cs",
+              "RelativeToolTip": "source\\DisplayFunc16x16.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAowBkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-27T04:37:13.654Z"
+              "WhenOpened": "2025-08-30T12:27:01.062Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "DisplayFunc1x30.cs",
-              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc1x30.cs",
-              "RelativeDocumentMoniker": "source\\DisplayFunc1x30.cs",
-              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc1x30.cs",
-              "RelativeToolTip": "source\\DisplayFunc1x30.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAApwBMAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T07:28:47.417Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "DisplayConfig.cs",
-              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayConfig.cs",
-              "RelativeDocumentMoniker": "source\\DisplayConfig.cs",
-              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayConfig.cs",
-              "RelativeToolTip": "source\\DisplayConfig.cs",
-              "ViewState": "AgIAAFABAAAAAAAAAAAewFYBAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-27T12:47:54.557Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 6,
               "Title": "Form1.cs",
               "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.cs",
               "RelativeDocumentMoniker": "source\\Form1.cs",
@@ -246,7 +182,68 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 2,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "source\\Form1.Designer.cs",
+              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.Designer.cs",
+              "RelativeToolTip": "source\\Form1.Designer.cs",
+              "ViewState": "AgIAAHIBAAAAAAAAAAAAAA0BAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-21T07:22:38.993Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DisplayFunc8x8.cs",
+              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc8x8.cs",
+              "RelativeDocumentMoniker": "source\\DisplayFunc8x8.cs",
+              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc8x8.cs",
+              "RelativeToolTip": "source\\DisplayFunc8x8.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAlwBsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-27T12:37:06.645Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "source\\Form1.Designer.cs",
+              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\Form1.Designer.cs",
+              "RelativeToolTip": "source\\Form1.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-27T04:37:13.654Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DisplayFunc1x30.cs",
+              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc1x30.cs",
+              "RelativeDocumentMoniker": "source\\DisplayFunc1x30.cs",
+              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc1x30.cs",
+              "RelativeToolTip": "source\\DisplayFunc1x30.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAApwBMAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-29T07:28:47.417Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DisplayConfig.cs",
+              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayConfig.cs",
+              "RelativeDocumentMoniker": "source\\DisplayConfig.cs",
+              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayConfig.cs",
+              "RelativeToolTip": "source\\DisplayConfig.cs",
+              "ViewState": "AgIAAFABAAAAAAAAAAAewFYBAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-27T12:47:54.557Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "DisplayFunc16x16.cs",
               "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\DisplayFunc16x16.cs",
               "RelativeDocumentMoniker": "source\\DisplayFunc16x16.cs",
@@ -258,19 +255,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "ws2812_driver.cs",
-              "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ws2812_driver.cs",
-              "RelativeDocumentMoniker": "source\\ws2812_driver.cs",
-              "ToolTip": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ws2812_driver.cs",
-              "RelativeToolTip": "source\\ws2812_driver.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T12:31:27.798Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "ImageSettingsForm.cs",
               "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ImageSettingsForm.cs",
               "RelativeDocumentMoniker": "source\\ImageSettingsForm.cs",
@@ -282,7 +267,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "ImageSettingsForm.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\ImageSettingsForm.cs",
               "RelativeDocumentMoniker": "source\\ImageSettingsForm.cs",
@@ -293,7 +278,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 16,
               "Title": "AudioFFTAnalysis.cs",
               "DocumentMoniker": "E:\\1.work\\4.HUAYING\\1.project\\4.UART_WS2812\\\u4E32\u53E3\u9A71\u52A8WS2812\\source\\AudioFFTAnalysis.cs",
               "RelativeDocumentMoniker": "source\\AudioFFTAnalysis.cs",

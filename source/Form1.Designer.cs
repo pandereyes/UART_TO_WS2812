@@ -53,6 +53,7 @@ namespace UART_TO_WS2812
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
             this.button14 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -160,7 +161,7 @@ namespace UART_TO_WS2812
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(200, 50);
             this.button9.TabIndex = 11;
-            this.button9.Text = "效果六";
+            this.button9.Text = "屏光同步";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
@@ -210,7 +211,8 @@ namespace UART_TO_WS2812
             this.comboBoxLEDBoardSelect.Items.AddRange(new object[] {
             "16x16",
             "8x8",
-            "1x30"});
+            "1x30",
+            "ambilight"});
             this.comboBoxLEDBoardSelect.Location = new System.Drawing.Point(582, 30);
             this.comboBoxLEDBoardSelect.Name = "comboBoxLEDBoardSelect";
             this.comboBoxLEDBoardSelect.Size = new System.Drawing.Size(63, 20);
@@ -288,11 +290,22 @@ namespace UART_TO_WS2812
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(1017, 228);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(75, 23);
+            this.button15.TabIndex = 24;
+            this.button15.Text = "灯条设置";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1167, 521);
+            this.Controls.Add(this.button15);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.linkLabel1);
@@ -351,6 +364,7 @@ namespace UART_TO_WS2812
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button15;
     }
 }
 
