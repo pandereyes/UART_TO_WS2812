@@ -1,0 +1,35 @@
+﻿# WS2812 LED控制程序配置文件
+# 修改此文件后重启程序生效
+# 配置格式: 键名=值
+
+# 灯板类型 (8x8, 16x16, 1x30, ambilight)
+BoardType=16x16
+
+# 串口设置
+SerialPort=COM3
+LEDBrightness=20
+
+# 音乐频谱设置
+MusicSensitivity=1
+
+# 图片处理参数
+PictureBrightness=1
+PictureContrast=2.5
+PictureSaturation=1.3
+PictureThreshold=0.5
+PictureForceBinarization=False
+
+# B站粉丝数功能
+BilibiliUID=33028512
+
+# 环境光设置
+AmbiLightTopLEDs=30
+AmbiLightBottomLEDs=30
+AmbiLightLeftLEDs=20
+AmbiLightRightLEDs=20
+AmbiLightSampleInterval=33
+AmbiLightSampleWidth=20
+AmbiLightStartPosition=0
+AmbiLightDirection=0
+AmbiLightSamplePercent=2
+AmbiLightRefreshRate=30

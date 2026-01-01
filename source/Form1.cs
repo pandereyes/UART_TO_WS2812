@@ -386,7 +386,7 @@ namespace UART_TO_WS2812
                 
                 if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8 || DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
                 {
-                    imageLoaded = display_func_picture.SetImagePath(openFileDialog.FileName, true);
+                    imageLoaded = display_func_picture_optimized.SetImagePath(openFileDialog.FileName, true);
                     if (imageLoaded)
                     {
                         SetDisplayFuncIndex(2); // 切换到图片显示模式
@@ -691,7 +691,7 @@ namespace UART_TO_WS2812
 
         private void button11_Click(object sender, EventArgs e)
         {
-            display_func_picture.ShowImageSettingsDialog();
+            display_func_picture_optimized.ShowImageSettingsDialog();
         }
 
         private void comboBoxLEDBoardSelect_SelectedIndexChanged_1(object sender, EventArgs e)

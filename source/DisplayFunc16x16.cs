@@ -23,7 +23,7 @@ namespace UART_TO_WS2812
         {
             display_refresh.display_showlist_add(new display_func_draw());
             display_refresh.display_showlist_add(new display_func_music_spectrum());
-            display_refresh.display_showlist_add(new display_func_picture());
+            display_refresh.display_showlist_add(new display_func_picture_optimized());
             display_refresh.display_showlist_add(new display_func_code_rain());
             display_refresh.display_showlist_add(new display_func_bilibili_fans());
         }

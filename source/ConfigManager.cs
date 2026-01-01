@@ -334,7 +334,7 @@ namespace UART_TO_WS2812
                 display_func_music_spectrum.LoadSensitivityFromConfig();
 
                 // 应用图片处理参数配置
-                display_func_picture.LoadImageParamsFromConfig();
+                display_func_picture_optimized.LoadImageParamsFromConfig();
 
                 // 应用B站UID配置
                 display_func_bilibili_fans.LoadUIDFromConfig();
@@ -409,11 +409,11 @@ namespace UART_TO_WS2812
                 SetInt(Keys.MusicSensitivity, display_func_music_spectrum.GetSensitivity());
 
                 // 图片处理参数
-                SetFloat(Keys.PictureBrightness, display_func_picture.Brightness);
-                SetFloat(Keys.PictureContrast, display_func_picture.Contrast);
-                SetFloat(Keys.PictureSaturation, display_func_picture.Saturation);
-                SetFloat(Keys.PictureThreshold, display_func_picture.Threshold);
-                SetBool(Keys.PictureForceBinarization, display_func_picture.ForceBinarization);
+                SetFloat(Keys.PictureBrightness, display_func_picture_optimized.Brightness);
+                SetFloat(Keys.PictureContrast, display_func_picture_optimized.Contrast);
+                SetFloat(Keys.PictureSaturation, display_func_picture_optimized.Saturation);
+                SetFloat(Keys.PictureThreshold, display_func_picture_optimized.Threshold);
+                SetBool(Keys.PictureForceBinarization, display_func_picture_optimized.ForceBinarization);
 
                 // B站UID
                 SetLong(Keys.BilibiliUID, display_func_bilibili_fans.BilibiliUID);

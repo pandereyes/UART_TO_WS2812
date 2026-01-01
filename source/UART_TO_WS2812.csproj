@@ -112,6 +112,7 @@
     <Compile Include="DisplayFunc8x8.cs" />
     <Compile Include="display_func_ambilight.cs" />
     <Compile Include="DisplayFuncAmbiLight.cs" />
+    <Compile Include="display_func_picture_optimized.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

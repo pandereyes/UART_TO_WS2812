@@ -991,7 +991,7 @@ internal class music_spectrum_get_color
     internal class display_func_music_spectrum : IShowable
     {
         // 幅度阈值(控制频谱灵敏度)
-        private const uint FFT_SPECTRUM_LEV1_AMP = 300;
+        private const uint FFT_SPECTRUM_LEV1_AMP = 200;
         private const uint FFT_SPECTRUM_LEV2_AMP = 1000;
         private const uint FFT_SPECTRUM_LEV3_AMP = 2200;
         private const uint FFT_SPECTRUM_LEV4_AMP = 3500;
@@ -1937,28 +1937,25 @@ internal class music_spectrum_get_color
 
             
         }
-
-        // 设置亮度级别 (简化版本)
+        
+        // 设置亮度级别 - 多种递减方案
         private uint SetBrightnessLevel(uint color, int level)
         {
             // 简单的亮度调整：根据level降低亮度
             byte r = (byte)((color >> 16) & 0xFF);
             byte g = (byte)((color >> 8) & 0xFF);
             byte b = (byte)(color & 0xFF);
+            float brightness;
 
-            float brightness = 0;
-            // 亮度递减：头部最亮，尾部渐暗
-            if (DisplayConfig.CurrentBoardType == LEDBoardType.Board8x8)
+            if (level <= 3)
             {
-                brightness = 1.0f - (level * 0.3f);
-                brightness = Math.Max(0.05f, brightness);
+                brightness = 1.0f - (level * 0.25f); // 前3个：1.0, 0.75, 0.5, 0.25
             }
-            else if (DisplayConfig.CurrentBoardType == LEDBoardType.Board16x16)
+            else
             {
-                brightness = 1.0f - (level * 0.15f);
-                brightness = Math.Max(0.05f, brightness);
+                brightness = 0.25f - ((level - 3) * 0.05f); // 后面每级递减5%
             }
-
+            
             r = (byte)(r * brightness);
             g = (byte)(g * brightness);
             b = (byte)(b * brightness);
@@ -2034,7 +2031,7 @@ internal class music_spectrum_get_color
                                     int pixelIndex = i * totalRows + (totalRows - 1 - displayPosition);
                                     if (pixelIndex < temp_display_data.Length)
                                     {
-                                        temp_display_data[pixelIndex] = SetBrightnessLevel(list_color[i], j + 1);
+                                        temp_display_data[pixelIndex] = SetBrightnessLevel(list_color[i], j);
                                     }
                                 }
                             }
