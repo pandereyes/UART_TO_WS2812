@@ -199,7 +199,7 @@ namespace UART_TO_WS2812
 
                         SetDisplayFuncIndex(0); 
 
-                        ws2812Timer.Change(0, 10);
+                        ws2812Timer.Change(0, 20);
                         
                         // 保存串口配置
                         ConfigManager.SetString(ConfigManager.Keys.SerialPort, selectedPort);
